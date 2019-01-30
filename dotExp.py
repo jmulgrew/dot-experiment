@@ -9,30 +9,31 @@ import pygame
 from pygame.locals import *
 from pygame import gfxdraw
 
-# set up pygame
+# SET UP PYGAME
 pygame.init()
 
-# set up the window
-windowWidth = 900
-windowHeight = 600
-windowSurface = pygame.display.set_mode((windowWidth,windowHeight),0,32)
-pygame.display.set_caption('Dot Exp')
+# SET UP THE WINDOW
+window_width = 900
+window_height = 600
+window_surface = pygame.display.set_mode((window_width,window_height),0,32)
+pygame.display.set_caption('Dot Animation')
 
-# set up the colours
+# SET UP COLOURS
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 
-# draw the white background onto the surface
-windowSurface.fill(WHITE)
-
-# intialize  variables
+# INTIALIZE VARIABLES
 clock = pygame.time.Clock()
-x = windowWidth
-y = 300
-distance = 200
-dotSize = 40
+half_height = 300 # half of the screen height (center)
+left_position = 180 # how far the fixation dot should be to the left
+dot_move = window_width # dot movement (starts off the screen at 900 pixels)
+dot_space = 200 # space between dots
+dot_size = 40 # size of dots
 
-# main loop
+# DRAW BACKGROUND
+window_surface.fill(WHITE)
+
+# MAIN LOOP
 running = True
 
 while running:
@@ -40,42 +41,44 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    # update position
-    x -= 1
 
-    # draw stuff
-    windowSurface.fill(WHITE)
+    # update position
+    dot_move -= 1
+
+    # draw background
+    window_surface.fill(WHITE)
 
     # draw lines
-    pygame.draw.line(windowSurface, BLACK,(0,windowHeight/2),(windowWidth,windowHeight/2),4) # horizontal line
-    pygame.draw.line(windowSurface, BLACK,(windowWidth/5,0),(windowWidth/5,windowHeight),4) # vertical line
+    pygame.draw.line(window_surface, BLACK,(0,window_height/2),(window_width,window_height/2),4) # horizontal line
+    pygame.draw.line(window_surface, BLACK,(left_position,0),(left_position,window_height),4) # vertical line
 
-    # draw fixation dot
+    # draw fixation dot (always same spot)
     # black outline
-    pygame.gfxdraw.aacircle(windowSurface, 180, 300, dotSize, BLACK)
-    pygame.gfxdraw.filled_circle(windowSurface, 180, 300, dotSize, BLACK)
+    pygame.gfxdraw.aacircle(window_surface, left_position, half_height, dot_size, BLACK)
+    pygame.gfxdraw.filled_circle(window_surface, left_position, half_height, dot_size, BLACK)
     # white inner part
-    pygame.gfxdraw.aacircle(windowSurface, 180, 300, 36, WHITE)
-    pygame.gfxdraw.filled_circle(windowSurface, 180, 300, 36, WHITE)
+    pygame.gfxdraw.aacircle(window_surface, left_position, half_height, 36, WHITE)
+    pygame.gfxdraw.filled_circle(window_surface, left_position, half_height, 36, WHITE)
 
+    # draw moving dots
     # moving dot 1
-    pygame.gfxdraw.aacircle(windowSurface, x, y, dotSize, BLACK)
-    pygame.gfxdraw.filled_circle(windowSurface, x, y, dotSize, BLACK)
+    pygame.gfxdraw.aacircle(window_surface, dot_move, half_height, dot_size, BLACK)
+    pygame.gfxdraw.filled_circle(window_surface, dot_move, half_height, dot_size, BLACK)
     # moving dot 2
-    pygame.gfxdraw.aacircle(windowSurface, x+distance, y, dotSize, BLACK)
-    pygame.gfxdraw.filled_circle(windowSurface, x+distance, y, dotSize, BLACK)
+    pygame.gfxdraw.aacircle(window_surface, dot_move+dot_space, half_height, dot_size, BLACK)
+    pygame.gfxdraw.filled_circle(window_surface, dot_move+dot_space, half_height, dot_size, BLACK)
     # moving dot 3
-    pygame.gfxdraw.aacircle(windowSurface, x+(distance*2), y, dotSize, BLACK)
-    pygame.gfxdraw.filled_circle(windowSurface, x+(distance*2), y, dotSize, BLACK)
+    pygame.gfxdraw.aacircle(window_surface, dot_move+(dot_space*2), v, dot_size, BLACK)
+    pygame.gfxdraw.filled_circle(window_surface, dot_move+(dot_space*2), half_height, dot_size, BLACK)
     # moving dot 4
-    pygame.gfxdraw.aacircle(windowSurface, x+(distance*3), y, dotSize, BLACK)
-    pygame.gfxdraw.filled_circle(windowSurface, x+(distance*3), y, dotSize, BLACK)
+    pygame.gfxdraw.aacircle(window_surface, dot_move+(dot_space*3), half_height, dot_size, BLACK)
+    pygame.gfxdraw.filled_circle(window_surface, dot_move+(dot_space*3), half_height, dot_size, BLACK)
     # moving dot 5
-    pygame.gfxdraw.aacircle(windowSurface, x+(distance*4), y, dotSize, BLACK)
-    pygame.gfxdraw.filled_circle(windowSurface, x+(distance*4), y, dotSize, BLACK)
+    pygame.gfxdraw.aacircle(window_surface, dot_move+(dot_space*4), half_height, dot_size, BLACK)
+    pygame.gfxdraw.filled_circle(window_surface, dot_move+(dot_space*4), half_height, dot_size, BLACK)
     # moving dot 6
-    pygame.gfxdraw.aacircle(windowSurface, x+(distance*5), y, dotSize, BLACK)
-    pygame.gfxdraw.filled_circle(windowSurface, x+(distance*5), y, dotSize, BLACK)
+    pygame.gfxdraw.aacircle(window_surface, dot_move+(dot_space*5), half_height, dot_size, BLACK)
+    pygame.gfxdraw.filled_circle(window_surface, dot_move+(dot_space*5), half_height, dot_size, BLACK)
 
     # update the screen
     pygame.display.update()
