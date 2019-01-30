@@ -5,7 +5,7 @@
 - 1 Hz (3 syllable units)
 - 0.75 Hz (4 syllable units)
 
-#### Resources:
+##### Resources:
 - [pygame documentation](https://www.pygame.org/docs/)
 - [pygame image](https://www.pygame.org/docs/ref/image.html)
 - [pygame animation tips](https://www.cs.ucsb.edu/~pconrad/cs5nm/topics/pygame/drawing/)
