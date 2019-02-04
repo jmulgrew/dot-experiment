@@ -16,4 +16,4 @@
 - Make dot animation continuous
 - Be able to analyze all dot times to ensure approx one min apart
 - Be able to input the frequency?
-- ~~Set up background as fullscreen black window (animation will be in smaller white box)~~ DONE
+- ~~Set up background as fullscreen black window (animation will be in smaller white box)~~ **DONE**
