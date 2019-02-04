@@ -37,6 +37,7 @@ def draw_dots(game,posn, dot_size = 36, cl = (0,0,0)):
 # duration, dot frequency, & frame rate
 w,h = 900,600
 #freq = 1 # probably going to have user defined freq
+freq = float(input("Type in the frequency:"))
 frame_rate = 45
 
 # positioning
