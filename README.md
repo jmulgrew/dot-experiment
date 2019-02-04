@@ -11,3 +11,9 @@
 - [pygame animation tips](https://www.cs.ucsb.edu/~pconrad/cs5nm/topics/pygame/drawing/)
 - [fix your timestep](https://gafferongames.com/post/fix_your_timestep/)
 - [delta time & pygame](https://www.reddit.com/r/pygame/comments/3blsr3/jittering_movement/)
+
+##### Ideas/next steps:
+- Make dot animation continuous
+- Be able to analyze all dot times to ensure approx one min apart
+- Be able to input the frequency?
+- Set up background as fullscreen black window (animation will be in smaller white box)
