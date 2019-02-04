@@ -16,4 +16,5 @@
 - Make dot animation continuous
 - Be able to analyze all dot times to ensure approx one min apart
 - Be able to input the frequency?
+  - I've got this working but it could be better maybe... Possibly want to make it use subject number to determine condition (whether it should be 0.75 Hz, 1 Hz or 1.5 Hz). I'll ask.
 - ~~Set up background as fullscreen black window (animation will be in smaller white box)~~ **DONE**
