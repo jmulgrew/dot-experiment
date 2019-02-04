@@ -7,6 +7,7 @@ import pygame
 from pygame.locals import *
 from pygame import gfxdraw
 
+# FUNCTIONS
 def draw_bg(game, w = 900, h = 600, bg = (255,255,255), fg = (0,0,0), line = 4):
     '''draw_bg
     Draws the background of the animation (horizontal and vertical lines, fixation dot).
@@ -32,31 +33,34 @@ def draw_dots(game,posn, dot_size = 36, cl = (0,0,0)):
         game.gfxdraw.aacircle(window_surface, x, y, dot_size, cl)
         game.gfxdraw.filled_circle(window_surface, x, y, dot_size, cl)
 
-
-# DURATION, DOT FREQUENCY & FRAME RATE
+# INTIALIZE VARIABLES
+# duration, dot frequency, & frame rate
 w,h = 900,600
-freq = 1
+#freq = 1 # probably going to have user defined freq
 frame_rate = 45
 
-# INTIALIZE VARIABLES
-half_height = int(h/2) # half of the screen height (center)
+# positioning
+half_height = int(h/2) # half of the screen height
 left_position = 180 # how far the fixation dot should be to the left
 
-# Dots
+# dots
 num_dots = 12
 dot_space = 180 # space between dots
 dot_size = 36 # size of dots
 
-dot_start = [(w+dot_space*i,half_height) for i in range(num_dots)]
+dot_start = [(w+dot_space*i,half_height) for i in range(num_dots)] # starting dot positions
 dot_posn = dot_start
 times = [None for dot in dot_posn]
 
-#setup game length
+# setup animation length
 t,t_fin = 0,(num_dots+w/dot_space)/freq
 
+# SET UP PYGAME
 pygame.init()
 clock = pygame.time.Clock()
-window_surface = pygame.display.set_mode((w,h))
+window_surface = pygame.display.set_mode((w,h),pygame.FULLSCREEN)
+
+# MAIN LOOP
 while t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
 
     # calculate change in time/position
@@ -71,7 +75,7 @@ while t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event
     draw_dots(pygame,dot_posn)
     pygame.display.update()
 
-    #temporary, remove later
+    # temporary, remove later
     for i in range(num_dots):
         if dot_posn[i][0] <= left_position and times[i] is None:
             times[i] = t
