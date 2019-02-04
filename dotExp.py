@@ -39,7 +39,7 @@ running = True
 while running:
     # check input
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.KEYDOWN: # any key press will end animation
             running = False
 
     # update position
