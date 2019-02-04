@@ -1,97 +1,80 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sun Jan 27 16:50:17 2019
-
 @author: Jerrica Mulgrew
 """
-
 import pygame
 from pygame.locals import *
 from pygame import gfxdraw
 
-# SET UP PYGAME
-pygame.init()
+def draw_bg(game, w = 900, h = 600, bg = (255,255,255), fg = (0,0,0), line = 4):
+    '''draw_bg
+    Draws the background of the animation (horizontal and vertical lines, fixation dot).
+    '''
+    # draw background
+    window_surface.fill(bg)
+    # draw lines
+    game.draw.line(window_surface, fg,(0,h/2),(w,h/2),line) # horizontal line
+    game.draw.line(window_surface, fg,(left_position,0),(left_position,h),line) # vertical line
+    # draw fixation dot (always same spot)
+    # fg outline
+    game.gfxdraw.aacircle(window_surface, left_position, half_height, dot_size, fg)
+    game.gfxdraw.filled_circle(window_surface, left_position, half_height, dot_size, fg)
+    # bg inner part
+    game.gfxdraw.aacircle(window_surface, left_position, half_height, dot_size - line, bg)
+    game.gfxdraw.filled_circle(window_surface, left_position, half_height, dot_size - line, bg)
 
-# SET UP THE WINDOW
-window_width = 900
-window_height = 600
-window_surface = pygame.display.set_mode((window_width,window_height),0,32)
-pygame.display.set_caption('Dot Animation')
+def draw_dots(game,posn, dot_size = 36, cl = (0,0,0)):
+    '''draw_dots
+    Draws the moving dots.
+    '''
+    for (x,y) in posn:
+        game.gfxdraw.aacircle(window_surface, x, y, dot_size, cl)
+        game.gfxdraw.filled_circle(window_surface, x, y, dot_size, cl)
 
-# SET UP COLOURS
-BLACK = (0,0,0)
-WHITE = (255,255,255)
+
+# DURATION, DOT FREQUENCY & FRAME RATE
+w,h = 900,600
+freq = 1
+frame_rate = 45
 
 # INTIALIZE VARIABLES
-clock = pygame.time.Clock()
-half_height = 300 # half of the screen height (center)
+half_height = int(h/2) # half of the screen height (center)
 left_position = 180 # how far the fixation dot should be to the left
-dot_move = window_width # dot movement (starts off the screen at 900 pixels)
-dot_space = 200 # space between dots
-dot_size = 40 # size of dots
 
-# DRAW BACKGROUND
-window_surface.fill(WHITE)
+# Dots
+num_dots = 12
+dot_space = 180 # space between dots
+dot_size = 36 # size of dots
 
-# MAIN LOOP
-running = True
+dot_start = [(w+dot_space*i,half_height) for i in range(num_dots)]
+dot_posn = dot_start
+times = [None for dot in dot_posn]
 
-while running:
-    # check input
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN: # any key press will end animation
-            running = False
+#setup game length
+t,t_fin = 0,(num_dots+w/dot_space)/freq
 
-    # update position
-    dot_move -= 1
+pygame.init()
+clock = pygame.time.Clock()
+window_surface = pygame.display.set_mode((w,h))
+while t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
 
-    # draw background
-    window_surface.fill(WHITE)
+    # calculate change in time/position
+    clock.tick(frame_rate)
+    t = pygame.time.get_ticks()/1000
+    move = int(freq*dot_space*t)
+    dot_posn = [(x - move,half_height) for (x,y) in dot_start]
 
-    # draw lines
-    pygame.draw.line(window_surface, BLACK,(0,window_height/2),(window_width,window_height/2),4) # horizontal line
-    pygame.draw.line(window_surface, BLACK,(left_position,0),(left_position,window_height),4) # vertical line
-
-    # draw fixation dot (always same spot)
-    # black outline
-    pygame.gfxdraw.aacircle(window_surface, left_position, half_height, dot_size, BLACK)
-    pygame.gfxdraw.filled_circle(window_surface, left_position, half_height, dot_size, BLACK)
-    # white inner part
-    pygame.gfxdraw.aacircle(window_surface, left_position, half_height, 36, WHITE)
-    pygame.gfxdraw.filled_circle(window_surface, left_position, half_height, 36, WHITE)
-
-    # draw moving dots
-    # moving dot 1
-    pygame.gfxdraw.aacircle(window_surface, dot_move, half_height, dot_size, BLACK)
-    pygame.gfxdraw.filled_circle(window_surface, dot_move, half_height, dot_size, BLACK)
-    # moving dot 2
-    pygame.gfxdraw.aacircle(window_surface, dot_move+dot_space, half_height, dot_size, BLACK)
-    pygame.gfxdraw.filled_circle(window_surface, dot_move+dot_space, half_height, dot_size, BLACK)
-    # moving dot 3
-    pygame.gfxdraw.aacircle(window_surface, dot_move+(dot_space*2), v, dot_size, BLACK)
-    pygame.gfxdraw.filled_circle(window_surface, dot_move+(dot_space*2), half_height, dot_size, BLACK)
-    # moving dot 4
-    pygame.gfxdraw.aacircle(window_surface, dot_move+(dot_space*3), half_height, dot_size, BLACK)
-    pygame.gfxdraw.filled_circle(window_surface, dot_move+(dot_space*3), half_height, dot_size, BLACK)
-    # moving dot 5
-    pygame.gfxdraw.aacircle(window_surface, dot_move+(dot_space*4), half_height, dot_size, BLACK)
-    pygame.gfxdraw.filled_circle(window_surface, dot_move+(dot_space*4), half_height, dot_size, BLACK)
-    # moving dot 6
-    pygame.gfxdraw.aacircle(window_surface, dot_move+(dot_space*5), half_height, dot_size, BLACK)
-    pygame.gfxdraw.filled_circle(window_surface, dot_move+(dot_space*5), half_height, dot_size, BLACK)
-
-    # update the screen
+    # draw new animation
+    pygame.display.set_caption(f'Dot Animation: {t}')
+    draw_bg(pygame)
+    draw_dots(pygame,dot_posn)
     pygame.display.update()
 
-    # here I want to save picture
-
-    # limit to 30 frames per second
-    clock.tick(30)
-
-    # three things to figure out
-    # how long do you want the animation to go for
-    t = 60
-    # how fast the dots move (dots per second) - Hz (3 levels)
-    hertz = [1.5,1,0.75]
-    # how often do i want to take screenshots? what's the frame rate?
-    frame_rate = 30
+    #temporary, remove later
+    for i in range(num_dots):
+        if dot_posn[i][0] <= left_position and times[i] is None:
+            times[i] = t
+# finished
+print(times)
+exit()
