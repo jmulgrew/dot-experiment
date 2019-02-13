@@ -16,6 +16,7 @@
 - [sending triggers](https://stackoverflow.com/questions/47019995/how-to-implement-triggers-in-python-script)
   - Need to figure out how we are communicating with EEG (probably serial port).
 - [psychopy forum on eeg](https://discourse.psychopy.org/search?q=eeg)
+- [pyserial](https://pyserial.readthedocs.io/en/latest/)
 
 ##### Ideas/next steps:
 - Make dot animation continuous
