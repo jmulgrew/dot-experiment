@@ -10,7 +10,7 @@
 - [fix your timestep](https://gafferongames.com/post/fix_your_timestep/)
 - [delta time & pygame](https://www.reddit.com/r/pygame/comments/3blsr3/jittering_movement/)
 - [sending triggers](https://stackoverflow.com/questions/47019995/how-to-implement-triggers-in-python-script)
-  - Need to figure out how we are communicating with EEG.
+  - Need to figure out how we are communicating with EEG (probably serial port).
 - [psychopy forum on eeg](https://discourse.psychopy.org/search?q=eeg)
 
 ##### Ideas/next steps:
