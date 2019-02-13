@@ -6,7 +6,7 @@
 
 ##### My Frequencies:
 - 1.5 Hz (2 syllable units)
-- 1 Hz (3 syllable units) **Actually, apparently this is more like 1.1 Hz**
+- 1 Hz (3 syllable units) **Apparently this is more like 1.1 Hz**
 - 0.75 Hz (4 syllable units)
 
 ##### Resources:
