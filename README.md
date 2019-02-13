@@ -3,6 +3,7 @@
 ##### Important Info:
 - Monitor will be a CRT monitor
 - Code will be run on a PC
+- Communication with EEG is USB-to-serial port [exact info here](https://www.biosemi.com/faq/USB%20Trigger%20interface%20cable.htm)
 
 ##### My Frequencies:
 - 1.5 Hz (2 syllable units)
@@ -14,7 +15,6 @@
 - [fix your timestep](https://gafferongames.com/post/fix_your_timestep/)
 - [delta time & pygame](https://www.reddit.com/r/pygame/comments/3blsr3/jittering_movement/)
 - [sending triggers](https://stackoverflow.com/questions/47019995/how-to-implement-triggers-in-python-script)
-  - Need to figure out how we are communicating with EEG (probably serial port).
 - [psychopy forum on eeg](https://discourse.psychopy.org/search?q=eeg)
 - [pyserial](https://pyserial.readthedocs.io/en/latest/)
 
