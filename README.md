@@ -19,4 +19,4 @@
 - Send triggers from program to EEG to time lock stimulus presentation
 - Implement auditory stimuli
 - ~~Be able to input the frequency?~~
-- ~~Set up background as fullscreen black window (animation will be in smaller white box)~~ **DONE**
+- ~~Set up background as fullscreen black window (animation will be in smaller white box)~~
