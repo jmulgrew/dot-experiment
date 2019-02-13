@@ -3,7 +3,7 @@
 ##### Important Info:
 - Monitor will be a CRT monitor
 - Code will be run on a PC
-- Communication with EEG is USB-to-serial port [exact info here](https://www.biosemi.com/faq/USB%20Trigger%20interface%20cable.htm)
+- Communication with EEG is USB-to-serial port [(exact info here)](https://www.biosemi.com/faq/USB%20Trigger%20interface%20cable.htm)
 
 ##### My Frequencies:
 - 1.5 Hz (2 syllable units)
