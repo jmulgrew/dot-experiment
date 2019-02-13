@@ -1,5 +1,9 @@
 ### Dot Experiment Fundamentals & Resources
 
+##### Important Info:
+- Monitor will be a CRT monitor
+- Code will be run on a PC
+
 ##### My Frequencies:
 - 1.5 Hz (2 syllable units)
 - 1 Hz (3 syllable units) **Actually, apparently this is more like 1.1 Hz**
