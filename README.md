@@ -1,5 +1,7 @@
 ### Dot Experiment Fundamentals & Resources
 
+**dotExp2 will be the full paradigm (with audio)**
+
 ##### Important Info:
 - Monitor will be a CRT monitor
 - Code will be run on a PC
