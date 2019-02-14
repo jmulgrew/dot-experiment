@@ -17,6 +17,7 @@
 - [sending triggers](https://stackoverflow.com/questions/47019995/how-to-implement-triggers-in-python-script)
 - [psychopy forum on eeg](https://discourse.psychopy.org/search?q=eeg)
 - [pyserial](https://pyserial.readthedocs.io/en/latest/)
+- [module for multiple lines of text in pygame](https://github.com/cosmologicon/pygame-text)
 
 ##### Ideas/next steps:
 - Make dot animation continuous
