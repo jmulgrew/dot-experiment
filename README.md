@@ -20,6 +20,7 @@
 
 ##### Ideas/next steps:
 - Make dot animation continuous
+- Add instruction screen before main loop
 - Be able to analyze all dot times to ensure approx one min apart
 - Send triggers from program to EEG to time lock stimulus presentation
 - Implement auditory stimuli
