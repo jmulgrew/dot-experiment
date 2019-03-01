@@ -4,14 +4,24 @@ Created on Sun Jan 27 16:50:17 2019
 @author: Jerrica Mulgrew
 """
 import pygame
-# import ptext
+import ptext
 from pygame.locals import *
 from pygame import gfxdraw
 
 # FUNCTIONS
+def show_instructions(game, BLACK = (0,0,0)):
+    '''draw_dots
+    Shows the instruction screen. Any key press will start up the exposure period
+    of the experiment.
+    '''
+    instructions = """In this experiment you will listen to a language made up of nonsense words. Please pay attention and listen carefully. Later in the experiment you will be tested on the words that you have learned."""
+    window_surface.fill(BLACK)
+    ptext.draw(instructions, centerx = 450, centery = 300, align = "center", width = 900, lineheight = 1.5, color = (255,255,255), fontsize = 24 , sysfontname ="Helvetica")
+
 def draw_bg(game, w = 900, h = 600, bg = (255,255,255), fg = (0,0,0), line = 4):
     '''draw_bg
     Draws the background of the animation (horizontal and vertical lines, fixation dot).
+    This remains the same throughout the exposure period.
     '''
     # draw background
     window_surface.fill(bg)
@@ -26,7 +36,7 @@ def draw_bg(game, w = 900, h = 600, bg = (255,255,255), fg = (0,0,0), line = 4):
     game.gfxdraw.aacircle(window_surface, left_position, half_height, dot_size - line, bg)
     game.gfxdraw.filled_circle(window_surface, left_position, half_height, dot_size - line, bg)
 
-def draw_dots(game,posn, dot_size = 36, cl = (0,0,0)):
+def draw_dots(game, posn, dot_size = 36, cl = (0,0,0)):
     '''draw_dots
     Draws the moving dots.
     '''
@@ -35,33 +45,13 @@ def draw_dots(game,posn, dot_size = 36, cl = (0,0,0)):
         game.gfxdraw.filled_circle(window_surface, x, y, dot_size, cl)
 
 # INTIALIZE VARIABLES
-# duration, dot frequency, & frame rate
+# duration, dot frequency, and frame rate
 w,h = 900,600
-#freq = 1 # probably going to have user defined freq
-freq = float(input("Type in the frequency:"))
+freq = float(input("Type in the frequency:")) # user defined freq for testing, will be removed later
 frame_rate = 45
 
 # audio files
-audio_order = open('audio_stim/audio_stim_order.txt')
-# pautone
-# 12 = wave.open('audio_stim/pau.wav', 'r')
-# 7 = wave.open('audio_stim/to.wav', 'r')
-# 9 = wave.open('audio_stim/ne.wav', 'r')
-# nurafi
-# 11 = wave.open('audio_stim/nu.wav', 'r')
-# 1 = wave.open('audio_stim/ra.wav', 'r')
-# 8 = wave.open('audio_stim/fi.wav', 'r')
-# mailoki
-# 5 = wave.open('audio_stim/mai.wav', 'r')
-# 4 = wave.open('audio_stim/lo.wav', 'r')
-# 2 = wave.open('audio_stim/ki.wav', 'r')
-# gabalu
-# 10 = wave.open('audio_stim/ga.wav', 'r')
-# 3 = wave.open('audio_stim/ba.wav', 'r')
-# 6 = wave.open('audio_stim/lu.wav', 'r')
-
-# instructions
-instructions = """In this experiment you will listen to a language made up of nonsense words. Please pay attention and listen carefully. Later in the experiment you will be tested on the words that you have learned."""
+# audio_order = open('audio_stim/audio_stim_order.txt')
 
 # positioning
 half_height = int(h/2) # half of the screen height
@@ -76,7 +66,7 @@ dot_start = [(w+dot_space*i,half_height) for i in range(num_dots)] # starting do
 dot_posn = dot_start
 times = [None for dot in dot_posn]
 
-# setup animation length
+# animation length
 t,t_fin = 0,(num_dots+w/dot_space)/freq
 
 # SET UP PYGAME
@@ -84,14 +74,19 @@ pygame.init()
 clock = pygame.time.Clock()
 window_surface = pygame.display.set_mode((w,h),pygame.FULLSCREEN)
 
-# SHOW INSTRUCTIONS
-#while pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
-    # ptext.draw(instructions, color = (0, 0, 0))
-    # pygame.display.update()
+# instruction screen (THIS NEEDS TO BE IN THE MAIN LOOP and needs to have a key press go into exposure period...)
+# if instruction_screen == True
+#    clock.tick(frame_rate)
+#    show_instructions(pygame)
+#    pygame.display.update()
 
 # MAIN LOOP
-while t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
 
+while t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]: # this probably needs to be changed
+
+    # INSTRUCTION SCREEN
+
+    # EXPOSURE PERIOD
     # calculate change in time/position
     clock.tick(frame_rate)
     t = pygame.time.get_ticks()/1000

@@ -1,5 +1,17 @@
 ### Dot Experiment Fundamentals & Resources
 
+##### Next steps:
+- Make dot animation continuous
+- Add instruction screen before main loop
+- Implement auditory stimuli
+- Send triggers from program to EEG to time lock stimulus presentation
+- Be able to analyze all dot times + audio stimuli presentations to ensure correct frequency
+- Find video for "naturalistic" visual stimuli presentation
+  - How to implement video in python?
+  - How will we track the frequency of water drops
+- ~~Be able to input the frequency?~~
+- ~~Set up background as fullscreen black window (animation will be in smaller white box)~~
+
 ##### Important Info:
 - Monitor will be a CRT monitor
 - Code will be run on a PC
@@ -18,12 +30,3 @@
 - [psychopy forum on eeg](https://discourse.psychopy.org/search?q=eeg)
 - [pyserial](https://pyserial.readthedocs.io/en/latest/)
 - [module for multiple lines of text in pygame](https://github.com/cosmologicon/pygame-text)
-
-##### Ideas/next steps:
-- Make dot animation continuous
-- Add instruction screen before main loop
-- Be able to analyze all dot times to ensure approx one min apart
-- Send triggers from program to EEG to time lock stimulus presentation
-- Implement auditory stimuli
-- ~~Be able to input the frequency?~~
-- ~~Set up background as fullscreen black window (animation will be in smaller white box)~~
