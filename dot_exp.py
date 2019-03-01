@@ -42,7 +42,7 @@ freq = float(input("Type in the frequency:"))
 frame_rate = 45
 
 # audio files
-audio_order = open('audio_stim_order.txt')
+audio_order = open('audio_stim/audio_stim_order.txt')
 # pautone
 # 12 = wave.open('audio_stim/pau.wav', 'r')
 # 7 = wave.open('audio_stim/to.wav', 'r')
