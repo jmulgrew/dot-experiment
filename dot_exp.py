@@ -4,6 +4,7 @@ Created on Sun Jan 27 16:50:17 2019
 @author: Jerrica Mulgrew
 """
 import pygame
+# import ptext
 from pygame.locals import *
 from pygame import gfxdraw
 
@@ -40,6 +41,28 @@ w,h = 900,600
 freq = float(input("Type in the frequency:"))
 frame_rate = 45
 
+# audio files
+audio_order = open('audio_stim/audio_stim_order.txt')
+# pautone
+# 12 = wave.open('audio_stim/pau.wav', 'r')
+# 7 = wave.open('audio_stim/to.wav', 'r')
+# 9 = wave.open('audio_stim/ne.wav', 'r')
+# nurafi
+# 11 = wave.open('audio_stim/nu.wav', 'r')
+# 1 = wave.open('audio_stim/ra.wav', 'r')
+# 8 = wave.open('audio_stim/fi.wav', 'r')
+# mailoki
+# 5 = wave.open('audio_stim/mai.wav', 'r')
+# 4 = wave.open('audio_stim/lo.wav', 'r')
+# 2 = wave.open('audio_stim/ki.wav', 'r')
+# gabalu
+# 10 = wave.open('audio_stim/ga.wav', 'r')
+# 3 = wave.open('audio_stim/ba.wav', 'r')
+# 6 = wave.open('audio_stim/lu.wav', 'r')
+
+# instructions
+instructions = """In this experiment you will listen to a language made up of nonsense words. Please pay attention and listen carefully. Later in the experiment you will be tested on the words that you have learned."""
+
 # positioning
 half_height = int(h/2) # half of the screen height
 left_position = 180 # how far the fixation dot should be to the left
@@ -60,6 +83,11 @@ t,t_fin = 0,(num_dots+w/dot_space)/freq
 pygame.init()
 clock = pygame.time.Clock()
 window_surface = pygame.display.set_mode((w,h),pygame.FULLSCREEN)
+
+# SHOW INSTRUCTIONS
+#while pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
+    # ptext.draw(instructions, color = (0, 0, 0))
+    # pygame.display.update()
 
 # MAIN LOOP
 while t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
