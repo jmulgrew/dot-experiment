@@ -30,3 +30,4 @@
 - [psychopy forum on eeg](https://discourse.psychopy.org/search?q=eeg)
 - [pyserial](https://pyserial.readthedocs.io/en/latest/)
 - [module for multiple lines of text in pygame](https://github.com/cosmologicon/pygame-text)
+- [videos in python](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html#playing-video-from-file)
