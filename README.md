@@ -29,5 +29,6 @@
 - [sending triggers](https://stackoverflow.com/questions/47019995/how-to-implement-triggers-in-python-script)
 - [psychopy forum on eeg](https://discourse.psychopy.org/search?q=eeg)
 - [pyserial](https://pyserial.readthedocs.io/en/latest/)
+- [serial port triggers](http://forum.cogsci.nl/index.php?p=/discussion/734/open-serial-port-trigger-for-eeg/p1)
 - [module for multiple lines of text in pygame](https://github.com/cosmologicon/pygame-text)
 - [videos in python](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html#playing-video-from-file)
