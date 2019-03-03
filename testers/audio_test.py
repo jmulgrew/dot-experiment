@@ -15,19 +15,18 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 
 # SET UP PYGAME
-pygame.mixer.pre_init(frequency = 44100, size = 16, channels = 2)
+#pygame.mixer.pre_init(frequency = 44100, size = 16, channels = 1)
 pygame.init()
 pygame.mixer.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((w,h))
 
-test_sound = pygame.mixer.Sound("ba.wav")
+test_sound = pygame.mixer.Sound('../audio_stim/jay.wav') # dot dot makes you go up one folder (bc not in parent folder)
 
 # SHOW INSTRUCTIONS
-while pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
-    screen.fill(BLACK)
+for i in range(5):
     pygame.mixer.Sound.play(test_sound)
-    clock.tick(60)
-
+    while pygame.mixer.get_busy():
+        clock.tick(45)
 pygame.quit()
 exit()

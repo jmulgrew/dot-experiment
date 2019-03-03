@@ -9,7 +9,7 @@ from pygame.locals import *
 from pygame import gfxdraw
 
 # FUNCTIONS
-def show_instructions(game, w, BLACK = (0,0,0), WHITE = (255,255,255)):
+def draw_instruct(game, w, BLACK = (0,0,0), WHITE = (255,255,255)):
     '''draw_dots
     Shows the instruction screen. Any key press will start up the exposure period
     of the experiment.
@@ -69,47 +69,50 @@ dot_posn = dot_start
 times = [None for dot in dot_posn]
 
 # animation length
-t,t_fin = 0,(num_dots+w/dot_space)/freq
+t_fin = (num_dots+w/dot_space)/freq
 
 # SET UP PYGAME
 pygame.init()
 clock = pygame.time.Clock()
 window_surface = pygame.display.set_mode((w,h),pygame.FULLSCREEN)
 
-# instruction screen (THIS NEEDS TO BE IN THE MAIN LOOP and needs to have a key press go into exposure period...)
-# if instruction_screen == True
-#    clock.tick(frame_rate)
-#    show_instructions(pygame, w)
-#    pygame.display.update()
-     # see if participant has pressed key to end instructions
-#    for event in pygame.event.get():
-#       if event.type == pygame.KEYDOWN:
-#       instruction_screen = False
-
 # if instruction_screen == False
 # MAIN LOOP
-
-while t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]: # this needs to be changed
+instructions = True
+experiment = False
+while instructions or experiment:
+    clock.tick(frame_rate)
 
     # INSTRUCTION SCREEN
+    if instructions:
+        if pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
+            draw_instruct(pygame, w)
+        else:
+            instructions = False
+            pygame.event.clear()
+            experiment = True
+            t0 = pygame.time.get_ticks()/1000
 
     # EXPOSURE PERIOD
-    # calculate change in time/position
-    clock.tick(frame_rate)
-    t = pygame.time.get_ticks()/1000
-    move = int(freq*dot_space*t)
-    dot_posn = [(x - move,half_height) for (x,y) in dot_start]
+    elif experiment:
+        t = pygame.time.get_ticks()/1000 - t0
+        if t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
+            # calculate change in time/position
+            move = int(freq*dot_space*t)
+            dot_posn = [(x - move,half_height) for (x,y) in dot_start]
 
-    # draw new animation
-    pygame.display.set_caption(f'Dot Animation: {t}')
-    draw_bg(pygame)
-    draw_dots(pygame,dot_posn)
+            # draw new animation
+            pygame.display.set_caption(f'Dot Animation: {t}')
+            draw_bg(pygame)
+            draw_dots(pygame,dot_posn)
+
+            # temporary, remove later - make func
+            for i in range(num_dots):
+                if dot_posn[i][0] <= left_position and times[i] is None:
+                    times[i] = t # write out as text file
+        else:
+            experiment = False
     pygame.display.update()
 
-    # temporary, remove later
-    for i in range(num_dots):
-        if dot_posn[i][0] <= left_position and times[i] is None:
-            times[i] = t
-# finished
 print(times)
 exit()
