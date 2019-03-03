@@ -2,7 +2,7 @@
 
 ##### Next steps:
 - Make dot animation continuous
-- Add instruction screen before main loop
+- ~~Add instruction screen before main loop~~
 - Implement auditory stimuli
 - Send triggers from program to EEG to time lock stimulus presentation
 - Be able to analyze all dot times + audio stimuli presentations to ensure correct frequency
