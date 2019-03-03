@@ -9,14 +9,16 @@ from pygame.locals import *
 from pygame import gfxdraw
 
 # FUNCTIONS
-def show_instructions(game, BLACK = (0,0,0)):
+def show_instructions(game, w, BLACK = (0,0,0), WHITE = (255,255,255)):
     '''draw_dots
     Shows the instruction screen. Any key press will start up the exposure period
     of the experiment.
     '''
-    instructions = """In this experiment you will listen to a language made up of nonsense words. Please pay attention and listen carefully. Later in the experiment you will be tested on the words that you have learned."""
+    instructions = """In this experiment you will listen to a language made up of nonsense words.Please pay attention and listen carefully.\nLater in the experiment you will be tested on the words that you have learned.\n\nPress any key to start the experiment."""
+    # draw background
     window_surface.fill(BLACK)
-    ptext.draw(instructions, centerx = 450, centery = 300, align = "center", width = 900, lineheight = 1.5, color = (255,255,255), fontsize = 24 , sysfontname ="Helvetica")
+    # draw text
+    ptext.draw(instructions, centerx = 450, centery = 300, width = w, align = "center", lineheight = 1.5, color = WHITE, fontsize = 24 , sysfontname ="Helvetica")
 
 def draw_bg(game, w = 900, h = 600, bg = (255,255,255), fg = (0,0,0), line = 4):
     '''draw_bg
@@ -77,12 +79,17 @@ window_surface = pygame.display.set_mode((w,h),pygame.FULLSCREEN)
 # instruction screen (THIS NEEDS TO BE IN THE MAIN LOOP and needs to have a key press go into exposure period...)
 # if instruction_screen == True
 #    clock.tick(frame_rate)
-#    show_instructions(pygame)
+#    show_instructions(pygame, w)
 #    pygame.display.update()
+     # see if participant has pressed key to end instructions
+#    for event in pygame.event.get():
+#       if event.type == pygame.KEYDOWN:
+#       instruction_screen = False
 
+# if instruction_screen == False
 # MAIN LOOP
 
-while t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]: # this probably needs to be changed
+while t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]: # this needs to be changed
 
     # INSTRUCTION SCREEN
 
