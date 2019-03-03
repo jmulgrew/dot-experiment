@@ -9,16 +9,53 @@ from pygame.locals import *
 from pygame import gfxdraw
 
 # FUNCTIONS
+def start_instruct(game, w):
+    '''start_instruct
+    Starts the instruction screen loop. Returns the values for experiment, and t0.
+    Any key press will end the loop and start up the exposure period of the experiment.
+    '''
+    if pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
+        draw_instruct(pygame, w)
+    else:
+        pygame.event.clear()
+        experiment = True
+        t0 = pygame.time.get_ticks()/1000
+    return experiment, t0
+
 def draw_instruct(game, w, BLACK = (0,0,0), WHITE = (255,255,255)):
-    '''draw_dots
-    Shows the instruction screen. Any key press will start up the exposure period
-    of the experiment.
+    '''draw_instruct
+    Draws the instruction screen.
     '''
     instructions = """In this experiment you will listen to a language made up of nonsense words.Please pay attention and listen carefully.\nLater in the experiment you will be tested on the words that you have learned.\n\nPress any key to start the experiment."""
     # draw background
     window_surface.fill(BLACK)
     # draw text
     ptext.draw(instructions, centerx = 450, centery = 300, width = w, align = "center", lineheight = 1.5, color = WHITE, fontsize = 24 , sysfontname ="Helvetica")
+
+def start_exp(game, t, t_fin, freq, half_height, dot_space, dot_start):
+    '''start_exp
+    Starts the main exposure period of the experiment. Currently, experiment will end with any key press or when the animation finishes.
+    '''
+    if t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
+        # calculate change in time/position
+        move = int(freq*dot_space*t)
+        dot_posn = [(x - move,half_height) for (x,y) in dot_start]
+
+        # draw new animation
+        pygame.display.set_caption(f'Dot Animation: {t}')
+        draw_bg(pygame)
+        draw_dots(pygame,dot_posn)
+    else:
+        experiment = False
+        return experiment
+
+def track_time(game, t, times, dot_posn): # THIS FUNCTION DOES NOT HAVE ACCESS TO ANY OF THE VARIABLES
+    '''track_time
+    Keeps track of the timing of the dots when they cross the fixation point. This will be written out to the .txt logfile eventually.
+    '''
+    for i in range(num_dots):
+        if dot_posn[i][0] <= left_position and times[i] is None:
+            times[i] = t # write out as text file eventually
 
 def draw_bg(game, w = 900, h = 600, bg = (255,255,255), fg = (0,0,0), line = 4):
     '''draw_bg
@@ -76,42 +113,21 @@ pygame.init()
 clock = pygame.time.Clock()
 window_surface = pygame.display.set_mode((w,h),pygame.FULLSCREEN)
 
-# if instruction_screen == False
 # MAIN LOOP
-instructions = True
+t0 = None
 experiment = False
-while instructions or experiment:
+while experiment:
     clock.tick(frame_rate)
 
     # INSTRUCTION SCREEN
-    if instructions:
-        if pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
-            draw_instruct(pygame, w)
-        else:
-            instructions = False
-            pygame.event.clear()
-            experiment = True
-            t0 = pygame.time.get_ticks()/1000
+    if t0 is None:
+        experiment, t0 = start_instruct(game, w)
 
     # EXPOSURE PERIOD
     elif experiment:
         t = pygame.time.get_ticks()/1000 - t0
-        if t <= t_fin and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
-            # calculate change in time/position
-            move = int(freq*dot_space*t)
-            dot_posn = [(x - move,half_height) for (x,y) in dot_start]
+        experiment = start_exp(game, t, t_fin, freq, half_height, dot_space, dot_start)
 
-            # draw new animation
-            pygame.display.set_caption(f'Dot Animation: {t}')
-            draw_bg(pygame)
-            draw_dots(pygame,dot_posn)
-
-            # temporary, remove later - make func
-            for i in range(num_dots):
-                if dot_posn[i][0] <= left_position and times[i] is None:
-                    times[i] = t # write out as text file
-        else:
-            experiment = False
     pygame.display.update()
 
 print(times)
