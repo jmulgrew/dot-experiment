@@ -3,6 +3,7 @@
 Created on Sun Jan 27 16:50:17 2019
 @author: Jerrica Mulgrew
 """
+import csv
 import pygame
 import ptext
 from pygame.locals import *
@@ -26,7 +27,7 @@ def draw_instruct(game, w, BLACK = (0,0,0), WHITE = (255,255,255)):
     '''draw_instruct
     Draws the instruction screen.
     '''
-    instructions = """In this experiment you will listen to a language made up of nonsense words.Please pay attention and listen carefully.\nLater in the experiment you will be tested on the words that you have learned.\n\nPress any key to start the experiment."""
+    instructions = """In this experiment you will listen to a language made up of nonsense words. Please pay attention and listen carefully.\n\nLater in the experiment you will be tested on the words that you have learned.\n\nPress any key to start the experiment."""
     # draw background
     window_surface.fill(BLACK)
     # draw text
@@ -49,13 +50,14 @@ def start_exp(game, t, t_fin, freq, half_height, dot_space, dot_start):
         experiment = False
         return experiment
 
-def track_time(game, t, times, dot_posn): # THIS FUNCTION DOES NOT HAVE ACCESS TO ANY OF THE VARIABLES
+def track_time(game, t, times, dot_posn):
     '''track_time
     Keeps track of the timing of the dots when they cross the fixation point. This will be written out to the .txt logfile eventually.
     '''
     for i in range(num_dots):
         if dot_posn[i][0] <= left_position and times[i] is None:
-            times[i] = t # write out as text file eventually
+            times[i] = t
+            time_dict[i] = t
 
 def draw_bg(game, w = 900, h = 600, bg = (255,255,255), fg = (0,0,0), line = 4):
     '''draw_bg
@@ -104,6 +106,7 @@ dot_size = 36 # size of dots
 dot_start = [(w+dot_space*i,half_height) for i in range(num_dots)] # starting dot positions
 dot_posn = dot_start
 times = [None for dot in dot_posn]
+time_dict = {}
 
 # animation length
 t_fin = (num_dots+w/dot_space)/freq
@@ -130,5 +133,9 @@ while experiment:
 
     pygame.display.update()
 
-print(times)
+# write the dot times to csv file
+with open('time_list.csv', 'w') as f:
+    for key in time_dict.keys():
+        f.write("%s,%s\n"%(key,time_dict[key]))
+
 exit()
