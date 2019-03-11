@@ -1,0 +1,58 @@
+frame_rate: 60
+w: 900
+h: 600
+
+instructions:
+  clr: !!python/tuple [0,0,0]
+
+  title:
+    text: Jerrica's Kickass Experiment
+    clr: !!python/tuple [255,255,255]
+    fontsize: 64
+    rel_w: 0.5
+    rel_h: 0.3
+
+  instruct:
+    text: |
+            In this experiment you will listen to a language made up of nonsense words.
+            Please pay attention and listen carefully. Later in the experiment you will
+            be tested on the words that you have learned.
+    clr: !!python/tuple [255,255,255]
+    fontsize: 32
+    rel_w: 0.5
+    rel_h: 0.6
+
+stimulus:
+  time: 720
+  clr: !!python/tuple [255,255,255]
+  fixation:
+    clr: !!python/tuple [0,0,0]
+    bg: !!python/tuple [255,255,255]
+    rel_h: 0.5
+    rel_w: 0.2
+    dot_size: 36
+    line_width: 4
+  dot:
+    r: 36
+    clr: !!python/tuple [0,0,0]
+    rel_h: 0.5
+    spacing: 180
+    freq: 1.1
+
+  audio:
+    stim_file: audio_stim_order.txt
+    stim_freq: 1.1
+    stim_size: 3
+    files:
+      1:  audio_stim/ra.wav
+      2:  audio_stim/ki.wav
+      3:  audio_stim/ba.wav
+      4:  audio_stim/lo.wav
+      5:  audio_stim/mai.wav
+      6:  audio_stim/lu.wav
+      7:  audio_stim/to.wav
+      8:  audio_stim/fi.wav
+      9:  audio_stim/ne.wav
+      10: audio_stim/ga.wav
+      11: audio_stim/nu.wav
+      12: audio_stim/pau.wav
