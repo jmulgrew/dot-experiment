@@ -32,4 +32,4 @@
 - [serial port triggers](http://forum.cogsci.nl/index.php?p=/discussion/734/open-serial-port-trigger-for-eeg/p1)
 - [module for multiple lines of text in pygame](https://github.com/cosmologicon/pygame-text)
 - [videos in python](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html#playing-video-from-file)
-[videos in python with moviepy](http://zulko.github.io/moviepy/getting_started/videoclips.html)
+- [videos in python with moviepy](http://zulko.github.io/moviepy/getting_started/videoclips.html)
