@@ -1,9 +1,9 @@
 ### Dot Experiment Fundamentals & Resources
 
 ##### Next steps:
-- Make dot animation continuous
+- ~~Make dot animation continuous~~
 - ~~Add instruction screen before main loop~~
-- Implement auditory stimuli
+- ~~Implement auditory stimuli~~
 - Send triggers from program to EEG to time lock stimulus presentation
 - Be able to analyze all dot times + audio stimuli presentations to ensure correct frequency
 - Find video for "naturalistic" visual stimuli presentation
@@ -32,3 +32,4 @@
 - [serial port triggers](http://forum.cogsci.nl/index.php?p=/discussion/734/open-serial-port-trigger-for-eeg/p1)
 - [module for multiple lines of text in pygame](https://github.com/cosmologicon/pygame-text)
 - [videos in python](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html#playing-video-from-file)
+[videos in python with moviepy](http://zulko.github.io/moviepy/getting_started/videoclips.html)
