@@ -1,4 +1,4 @@
-##### Resources
+#### Resources
 - [Information on Timing](https://www.psychopy.org/general/timing/timing.html)
 - [Images](https://www.psychopy.org/api/visual/imagestim.html#psychopy.visual.ImageStim)
 - [Text](https://www.psychopy.org/api/visual/textbox.html#psychopy.visual.TextBox)
