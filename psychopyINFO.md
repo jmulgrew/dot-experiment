@@ -5,8 +5,8 @@
 - [Windows](https://www.psychopy.org/api/visual/window.html#psychopy.visual.Window)
 - [Core Functions](https://www.psychopy.org/api/core.html)
 - [Sound](https://www.psychopy.org/api/sound.html)
-- [Pauses/Quit with Global Key Events] (https://www.psychopy.org/coder/globalKeys.html#adding-a-global-event-key-simple)
-- [Sending Triggers w/ Serial Port](https://pyserial.readthedocs.io/en/latest/)
+- [Pause/Quit: Global Key Events](https://www.psychopy.org/coder/globalKeys.html#adding-a-global-event-key-simple)
+- [Sending Triggers with Serial Port](https://pyserial.readthedocs.io/en/latest/)
 - [Storing Data] (https://www.psychopy.org/api/data.html)
 
 #### Experiment Info
