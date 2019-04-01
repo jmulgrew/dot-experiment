@@ -6,7 +6,7 @@ instructions:
   clr: !!python/tuple [0,0,0]
 
   title:
-    text: Jerrica's Kickass Experiment
+    text: Experiment
     clr: !!python/tuple [255,255,255]
     fontsize: 64
     rel_w: 0.5
@@ -17,10 +17,12 @@ instructions:
             In this experiment you will listen to a language made up of nonsense words.
             Please pay attention and listen carefully. Later in the experiment you will
             be tested on the words that you have learned.
+
+            Press any key to begin the experiment.
     clr: !!python/tuple [255,255,255]
     fontsize: 32
     rel_w: 0.5
-    rel_h: 0.6
+    rel_h: 0.5
 
 stimulus:
   time: 720

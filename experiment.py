@@ -18,12 +18,14 @@ class stim_game:
         pygame.display.set_mode((config['w'],config['h']),pygame.FULLSCREEN)
         self.clock = pygame.time.Clock()
         self.steps = steps
+        self.data = []
     def run(self):
         for step in self.steps:
             while not step.done and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
                 self.clock.tick(config['frame_rate'])
                 step.update(pygame)
                 pygame.display.update()
+                self.data.append(step.status())
             # Step finished & clear events
             pygame.event.clear(pygame.KEYDOWN)
         # Done all steps so quit the game
@@ -33,9 +35,7 @@ def main():
     steps = [
         instructions(
             config['instructions'],
-            sub_comps = [text(config['instructions']['title']),
-                        text(config['instructions']['instruct'])
-                        ]),
+            sub_comps = [text(config['instructions']['instruct'])]),
         stimulus(
             config['stimulus'],
             sub_comps = [audio(config['stimulus']['audio'])] +

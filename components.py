@@ -9,24 +9,27 @@ class instructions:
         self.done = False
         self.t0 = None
         self.t = None
-
         # Unpack config
         self.clr = config['clr']
-
         # Attach components
         self.components = sub_comps
 
     def update(self,game):
-        '''Draws the instruction screen.
+        '''Draws the instruction screen
         '''
         t = game.time.get_ticks()/1000
         self.t0 = t if not self.t0 else self.t0
         self.t = t - self.t0
         # Update display
         game.display.get_surface().fill(self.clr)
+        # Set status
+        self.status = {}
         # Update components
         for component in self.components:
             component.update(game)
+
+    def status():
+        return self.status
 
 class text:
     def __init__(self,config,sub_comps=[]):
@@ -53,6 +56,12 @@ class text:
                     color = self.clr,
                     fontsize = self.fontsize ,
                     sysfontname ="Helvetica")
+        # Set status
+        self.status = {}
+        for component in self.components:
+            component.update(game)
+    def status():
+        return self.status
 
 # Stimulus
 class stimulus:
@@ -65,7 +74,6 @@ class stimulus:
         self.clr = config['clr']
         # Attach components
         self.components = sub_comps
-
     # Main functionality
     def update(self,game):
         t = game.time.get_ticks()/1000
@@ -73,11 +81,17 @@ class stimulus:
         self.t = t - self.t0
         # Update display
         game.display.get_surface().fill(self.clr)
+        # Set status
+        self.status = {}
         # Update components
         for component in self.components:
             component.update(game)
+
         # Check if step is done
         self.done = False if t < self.time else True
+
+    def status():
+        return self.status
 
 class fixation:
     def __init__(self,config,sub_comps=[]):
@@ -101,19 +115,24 @@ class fixation:
         # Update dipslay
         surface = game.display.get_surface()
         w,h = game.display.get_surface().get_size()
-        x = round(w*self.rel_w)
-        y = round(h*self.rel_h)
-        game.draw.line(surface,self.clr,(0,y),(w,y),self.line_width)
-        game.draw.line(surface,self.clr,(x,0),(x,h),self.line_width)
+        self.x = round(w*self.rel_w)
+        self.y = round(h*self.rel_h)
+        game.draw.line(surface,self.clr,(0,self.y),(w,self.y),self.line_width)
+        game.draw.line(surface,self.clr,(self.x,0),(self.x,h),self.line_width)
         # draw fixation dot
-        game.gfxdraw.aacircle(surface,x,y,self.dot_size,self.clr)
-        game.gfxdraw.filled_circle(surface,x,y,self.dot_size,self.clr)
+        game.gfxdraw.aacircle(surface,self.x,self.y,self.dot_size,self.clr)
+        game.gfxdraw.filled_circle(surface,self.x,self.y,self.dot_size,self.clr)
         # bg inner part
-        game.gfxdraw.aacircle(surface,x,y,self.dot_size-self.line_width,self.bg)
-        game.gfxdraw.filled_circle(surface,x,y,self.dot_size-self.line_width,self.bg)
+        game.gfxdraw.aacircle(surface,self.x,self.y,self.dot_size-self.line_width,self.bg)
+        game.gfxdraw.filled_circle(surface,self.x,self.y,self.dot_size-self.line_width,self.bg)
+        # Set status
+        self.status = {}
         # Update components
         for component in self.components:
             component.update(game)
+
+    def status():
+        return self.status
 
 class dot:
     num = 0
@@ -149,6 +168,8 @@ class dot:
             surface = game.display.get_surface()
             game.gfxdraw.aacircle(surface, self.x, self.y, self.r, self.clr)
             game.gfxdraw.filled_circle(surface, self.x, self.y, self.r, self.clr)
+        # Set status
+        self.status = {}
         # Update components
         for component in self.components:
             component.update(game)
@@ -157,9 +178,10 @@ class dot:
         w,h = game.display.get_surface().get_size()
         x = round(w + self.spacing*(self.n-self.freq*self.t))
         y = round(self.rel_h*h)
-
         return (x,y)
 
+    def status():
+        return self.status
 
 class audio:
     def __init__(self,config,sub_comps=[]):
@@ -186,7 +208,30 @@ class audio:
         if min(self.t*self.stim_freq,len(self.stim_group)) >= self.played:
             self.played += 1
             for k in self.stim_group[self.played]:
-                self.audio_q.put(game.mixer.Sound(self.files[k]))
+                self.audio_q.put({'sound_n': self.played, 'sound': game.mixer.Sound(self.files[k])})
         # Play audio
-        if not game.mixer.Channel(1).get_queue() and not self.audio_q.empty():
-            game.mixer.Channel(1).queue(self.audio_q.get())
+        if not game.mixer.get_busy() and not self.audio_q.empty():
+            sound = self.audio_q.get()
+            sound['sound'].play()
+            self.status = {'audio_time': self.t, 'sound_n': sound['sound_n']}
+        else:
+            self.status = {}
+        for component in self.components:
+            component.update(game)
+
+    def status():
+        return self.status
+
+# class logfile:
+# what it needs to do: write critical dot times, every third audio onset time and syllable identity, subject number?
+    # logfile = {}
+    # def get_time(game)
+        #for i in range(num_dots):
+            #if dot_posn[i][0] <= left_position and times[i] is None:
+            # times[i] = t
+            # logfile[?,1] = self.t ???
+    # write the dot times to csv file
+    #def write_time(game)
+        #with open('time_list.csv', 'w') as f:
+            #for key in time_dict.keys():
+                #f.write("%s,%s\n"%(key,time_dict[key]))
