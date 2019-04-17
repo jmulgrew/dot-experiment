@@ -1,4 +1,4 @@
-frame_rate: 60
+frame_rate: 6
 w: 900
 h: 600
 
@@ -25,7 +25,7 @@ instructions:
     rel_h: 0.5
 
 stimulus:
-  time: 720
+  time: 700
   clr: !!python/tuple [255,255,255]
   fixation:
     clr: !!python/tuple [0,0,0]
@@ -39,7 +39,7 @@ stimulus:
     clr: !!python/tuple [0,0,0]
     rel_h: 0.5
     spacing: 180
-    freq: 1.1
+    freq: .11
 
   audio:
     stim_file: audio_stim_order.txt

@@ -40,6 +40,8 @@ class text:
         self.fontsize = config['fontsize']
         self.rel_w = config['rel_w']
         self.rel_h = config['rel_h']
+        # Attach components
+        self.components = sub_comps
 
     def update(self,game):
         t = game.time.get_ticks()/1000
@@ -194,6 +196,9 @@ class audio:
         self.stim_size = config['stim_size']
         self.stim_freq = config['stim_freq']
         self.files = config['files']
+        # Attach components
+        self.components = sub_comps
+
 
         with open(self.stim_file, 'r') as stim_order:
             data = list(map(int,stim_order.read().split()))

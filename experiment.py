@@ -21,11 +21,13 @@ class stim_game:
         self.data = []
     def run(self):
         for step in self.steps:
+            count = 1
             while not step.done and pygame.KEYDOWN not in [event.type for event in pygame.event.get()]:
                 self.clock.tick(config['frame_rate'])
                 step.update(pygame)
                 pygame.display.update()
-                self.data.append(step.status())
+                pygame.image.save(pygame.display.get_surface(),f'/Users/jerrica/Documents/newDots/dot_{count}.jpg')
+                count += 1
             # Step finished & clear events
             pygame.event.clear(pygame.KEYDOWN)
         # Done all steps so quit the game
@@ -33,13 +35,12 @@ class stim_game:
 
 def main():
     steps = [
-        instructions(
-            config['instructions'],
-            sub_comps = [text(config['instructions']['instruct'])]),
+        # instructions(
+        #     config['instructions'],
+        #     sub_comps = [text(config['instructions']['instruct'])]),
         stimulus(
             config['stimulus'],
-            sub_comps = [audio(config['stimulus']['audio'])] +
-                        [fixation(config['stimulus']['fixation'])] +
+            sub_comps = [fixation(config['stimulus']['fixation'])] +
                         [dot(config['stimulus']['dot']) for i in range(round(config['stimulus']['time']*config['stimulus']['dot']['freq']))])
     ]
     stim_game(steps).run()
