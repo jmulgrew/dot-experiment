@@ -26,7 +26,7 @@ class stim_game:
                 self.clock.tick(config['frame_rate'])
                 step.update(pygame)
                 pygame.display.update()
-                pygame.image.save(pygame.display.get_surface(),f'/Users/jerrica/Documents/newDots/dot_{count}.jpg')
+                pygame.image.save(pygame.display.get_surface(),f'/Users/jerrica/Documents/conThree/dot_{count}.jpg')
                 count += 1
             # Step finished & clear events
             pygame.event.clear(pygame.KEYDOWN)
@@ -41,7 +41,7 @@ def main():
         stimulus(
             config['stimulus'],
             sub_comps = [fixation(config['stimulus']['fixation'])] +
-                        [dot(config['stimulus']['dot']) for i in range(round(config['stimulus']['time']*config['stimulus']['dot']['freq']))])
+                        [dot(config['stimulus']['dot']) for i in range(round(config['stimulus']['time']*eval(config['stimulus']['dot']['freq'])))])
     ]
     stim_game(steps).run()
     exit()

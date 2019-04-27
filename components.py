@@ -150,7 +150,7 @@ class dot:
         self.clr =  config['clr']
         self.rel_h = config['rel_h']
         self.spacing = config['spacing']
-        self.freq = config['freq']
+        self.freq = eval(config['freq'])
         # Attach components
         self.components = sub_comps
 

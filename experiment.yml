@@ -39,22 +39,4 @@ stimulus:
     clr: !!python/tuple [0,0,0]
     rel_h: 0.5
     spacing: 180
-    freq: .11
-
-  audio:
-    stim_file: audio_stim_order.txt
-    stim_freq: 1.1
-    stim_size: 3
-    files:
-      1:  audio_stim/ra.wav
-      2:  audio_stim/ki.wav
-      3:  audio_stim/ba.wav
-      4:  audio_stim/lo.wav
-      5:  audio_stim/mai.wav
-      6:  audio_stim/lu.wav
-      7:  audio_stim/to.wav
-      8:  audio_stim/fi.wav
-      9:  audio_stim/ne.wav
-      10: audio_stim/ga.wav
-      11: audio_stim/nu.wav
-      12: audio_stim/pau.wav
+    freq: '1/6'
