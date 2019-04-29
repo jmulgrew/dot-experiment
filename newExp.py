@@ -6,7 +6,7 @@ Created on Mon Apr  1 11:53:18 2019
 import os
 import glob
 import yaml
-from psychopy import prefs,core,event,visual
+from psychopy import prefs,core,event,visual, gui
 prefs.general['audioLib'] = ['pygame']
 from psychopy.sound import Sound
 
@@ -26,13 +26,35 @@ def resume(loc):
     for component in loc:
         component.resume()
 
+def get_info():
+    # dialogue box to get experiment info
+    my_gui = gui.Dlg(title = "Subject Information", screen =-1)
+    my_gui.addField('Subject ID:')
+    my_gui.addField('Condition Number:', choices = ["1","2","3"])
+    ok_data = my_gui.show()
+
+    if my_gui.OK: # user has hit OK..
+        subj_id = my_gui.data[0]
+        condition = int(my_gui.data[1])
+        # figure out what condition was selected and pick corresponding imgs
+        if condition == 1:
+            filenames = glob.glob('img_stim/set1/dot-to-dot/*.jpg')
+        elif condition == 2:
+            filenames = glob.glob('img_stim/set2/dot-to-dot/*.jpg')
+        else:
+            filenames = glob.glob('img_stim/set3/dot-to-dot/*.jpg')
+    else: # user has hit cancel...
+        quit()
+
 def main():
+    get_info()
     screen = visual.Window(monitor = "testMonitor", fullscr = True)
     clock = core.Clock()
 
-    # images
-    filenames = glob.glob('img_stim/set1/dot-to-dot/*.jpg')
+    # list comprehension for each image file
+    # filenames = glob.glob('img_stim/set1/dot-to-dot/*.jpg')
     images = [visual.ImageStim(screen, image = file) for file in sorted(filenames)] # list comprehension for each image file
+
     # sounds
     order = open('audio_stim/audio_stim_order.txt','r').read()
     audio_dict = yaml.safe_load(open('audio_stim/audio.yml','r'))
