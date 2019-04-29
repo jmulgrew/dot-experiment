@@ -48,7 +48,7 @@ def get_info():
         quit()
 
 def instructions(screen):
-    instruct = visual.TextStim(screen, text = "Welcome to the experiment.", color = (255,255,255), pos = (0,0))
+    instruct = visual.TextStim(screen, text = full_instruct, color = (255,255,255), pos = (0,0))
     instruct.draw()
     screen.flip()
     instructions = False
