@@ -1,0 +1,6 @@
+name: dot-exp
+dependencies:
+  - python=3.7
+  - pip=19.0.3
+  - pip:
+    - psychopy==3.0.7
