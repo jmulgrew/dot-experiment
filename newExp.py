@@ -43,16 +43,23 @@ def get_info():
             filenames = glob.glob('img_stim/set2/dot-to-dot/*.jpg')
         else:
             filenames = glob.glob('img_stim/set3/dot-to-dot/*.jpg')
+        return filenames
     else: # user has hit cancel...
         quit()
 
+def instructions(screen):
+    instruct = visual.TextStim(screen, text = "Welcome to the experiment.", color = (255,255,255), pos = (0,0))
+    instruct.draw()
+    screen.flip()
+    instructions = False
+    return instructions
+
 def main():
-    get_info()
-    screen = visual.Window(monitor = "testMonitor", fullscr = True)
+    filenames = get_info()
+    screen = visual.Window(monitor = "testMonitor", fullscr = True, rgb=(-1,-1,-1))
     clock = core.Clock()
 
-    # list comprehension for each image file
-    # filenames = glob.glob('img_stim/set1/dot-to-dot/*.jpg')
+    # sort images
     images = [visual.ImageStim(screen, image = file) for file in sorted(filenames)] # list comprehension for each image file
 
     # sounds
