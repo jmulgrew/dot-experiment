@@ -12,6 +12,9 @@ from psychopy.sound import Sound
 
 from stimulus import *
 
+with open('experiment.yml', 'r') as yamlFile:
+    config = yaml.load(yamlFile.read())
+
 def render_image(image):
     image.draw()
 
@@ -27,6 +30,10 @@ def resume(loc):
         component.resume()
 
 def get_info():
+    '''Creates a dialogue box to get the subject number and to choose the
+    condition that will be run. Based on the condition specified, the
+    function finds the correct set of dot images to use.
+    '''
     # dialogue box to get experiment info
     my_gui = gui.Dlg(title = "Subject Information", screen =-1)
     my_gui.addField('Subject ID:')
@@ -48,7 +55,10 @@ def get_info():
         quit()
 
 def instructions(screen):
-    instruct = visual.TextStim(screen, text = full_instruct, color = (255,255,255), pos = (0,0))
+    '''Eventually this will contain code to create the instruction screen and/or
+    inbetween block screens.
+    '''
+    instruct = visual.TextStim(screen, text = config['instructions'] color = (255,255,255), pos = (0,0))
     instruct.draw()
     screen.flip()
     instructions = False
