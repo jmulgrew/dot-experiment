@@ -1,18 +1,20 @@
 # Stimulus class
 class stimulus:
 
-    def __init__(self,array,render):
+    def __init__(self,array,render,while_paused=False):
         self.array = array
         self.render = render
         self.curr_item = 0
         self.paused = False
-
+        self.while_paused = while_paused
+        
     def expose(self):
-        if not self.paused:
-            item = self.array[self.curr_item]
-            self.curr_item += 1
-            if item is not None:
+        item = self.array[self.curr_item]
+        if item is not None:
+            if not self.paused or self.while_paused:
                 self.render(item)
+        if not self.paused:
+            self.curr_item = (self.curr_item + 1) % len(self.array)
         return 0
 
     def pause(self):
