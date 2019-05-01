@@ -53,10 +53,11 @@ def get_info():
     else: # user has hit cancel...
         quit()
 
-# def instructions():
-#     '''Eventually this will contain code to create the instruction screen(s).
+# def instruct():
+#     '''Ends the instruction loop if instructions are done.
 #     '''
-
+#     instruction_done = True
+#     return instruction_done
 
 def main():
     filenames = get_info()
