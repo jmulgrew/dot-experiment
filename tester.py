@@ -14,4 +14,4 @@ while instruction_done == False:
     message.draw()
     win.flip()
     event.waitKeys() # this pauses the whole thing and waits for any key press which isn't what i want... but otherwise the text "blinks" every frame refresh
-    event.globalKeys.add(key=['k'], func=instruct, name='done')
+    event.globalKeys.add(key=['space'], func=instruct, name='done') # trying to use space to end instructions... but the other issue is that I need TWO instruction screens.

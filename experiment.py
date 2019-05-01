@@ -53,14 +53,10 @@ def get_info():
     else: # user has hit cancel...
         quit()
 
-# def instructions(screen):
+# def instructions():
 #     '''Eventually this will contain code to create the instruction screen(s).
 #     '''
-#     instruct = visual.TextStim(screen, text = config['instructions'] color = (255,255,255), pos = (0,0))
-#     instruct.draw()
-#     screen.flip()
-#     instructions = False
-#     return instructions
+
 
 def main():
     filenames = get_info()
