@@ -34,7 +34,6 @@ def get_info():
     condition that will be run. Based on the condition specified, the
     function finds the correct set of dot images to use.
     '''
-    # dialogue box to get experiment info
     my_gui = gui.Dlg(title = "Subject Information", screen =-1)
     my_gui.addField('Subject ID:')
     my_gui.addField('Condition Number:', choices = ["1","2","3"])
@@ -54,15 +53,14 @@ def get_info():
     else: # user has hit cancel...
         quit()
 
-def instructions(screen):
-    '''Eventually this will contain code to create the instruction screen and/or
-    inbetween block screens.
-    '''
-    instruct = visual.TextStim(screen, text = config['instructions'] color = (255,255,255), pos = (0,0))
-    instruct.draw()
-    screen.flip()
-    instructions = False
-    return instructions
+# def instructions(screen):
+#     '''Eventually this will contain code to create the instruction screen(s).
+#     '''
+#     instruct = visual.TextStim(screen, text = config['instructions'] color = (255,255,255), pos = (0,0))
+#     instruct.draw()
+#     screen.flip()
+#     instructions = False
+#     return instructions
 
 def main():
     filenames = get_info()
