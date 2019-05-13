@@ -1,12 +1,12 @@
 # Stimulus class
 class stimulus:
 
-    def __init__(self,array,render,while_paused=False):
-        self.array = array
+    def __init__(self,items,render,while_paused=False,manual_next=False):
+        self.aoi = items
         self.render = render
-        self.curr_item = 0
-        self.paused = False
-        self.while_paused = while_paused
+        self.pause = pause
+        self.resume = resume
+        self.next = next
 
     def expose(self):
         '''Reveals the next item in the array (whether image or sound) as long
@@ -17,8 +17,9 @@ class stimulus:
         if item is not None:
             if not self.paused or self.while_paused:
                 self.render(item)
-        if not self.paused:
-            self.curr_item = (self.curr_item + 1) % len(self.array)
+        if not self.paused and not self.manual_next:
+            print(curr_item)
+            self.curr_item = (self.curr_item + 1)
         return 0
 
     def pause(self):
@@ -30,3 +31,9 @@ class stimulus:
         '''Resumes the experiment after a pause, according to a key press.
         '''
         self.paused = False
+
+    def next(self):
+        '''Goes to next screen
+        '''
+        if self.manual_next:
+            self.curr_item = (self.curr_item + 1)

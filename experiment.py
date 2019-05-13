@@ -3,88 +3,63 @@
 Created on Mon Apr  1 11:53:18 2019
 @author: jmulgrew
 """
-import os
 import glob
+import os
+
 import yaml
-from psychopy import prefs,core,event,visual, gui
-prefs.general['audioLib'] = ['pygame']
+from psychopy import core, event, gui, prefs, visual
 from psychopy.sound import Sound
 
 from stimulus import *
+from section import *
+
+prefs.general['audioLib'] = ['pygame']
 
 with open('experiment.yml', 'r') as yamlFile:
     config = yaml.load(yamlFile.read())
 
-def render_image(image):
+def render_draw(image):
     image.draw()
 
 def render_sound(sound):
     sound.play()
-
-def pause(loc):
-    for component in loc:
-        component.pause()
-
-def resume(loc):
-    for component in loc:
-        component.resume()
 
 def get_info():
     '''Creates a dialogue box to get the subject number and to choose the
     condition that will be run. Based on the condition specified, the
     function finds the correct set of dot images to use.
     '''
-    my_gui = gui.Dlg(title = "Subject Information", screen =-1)
-    my_gui.addField('Subject ID:')
-    my_gui.addField('Condition Number:', choices = ["1","2","3"])
-    ok_data = my_gui.show()
-
-    if my_gui.OK: # user has hit OK..
-        subj_id = my_gui.data[0]
-        condition = int(my_gui.data[1])
-        # figure out what condition was selected and pick corresponding imgs
-        if condition == 1:
-            filenames = glob.glob('img_stim/set1/dot-to-dot/*.jpg')
-        elif condition == 2:
-            filenames = glob.glob('img_stim/set2/dot-to-dot/*.jpg')
-        else:
-            filenames = glob.glob('img_stim/set3/dot-to-dot/*.jpg')
-        return filenames
-    else: # user has hit cancel...
-        quit()
-
-# def instruct():
-#     '''Ends the instruction loop if instructions are done.
-#     '''
-#     instruction_done = True
-#     return instruction_done
+    my_gui = gui.DlgFromDict(config['user_input'],order=config['order'])
+    if my_gui.OK:
+        return my_gui.data
+    quit()
 
 def main():
-    filenames = get_info()
+    event.globalKeys.add(key='q', func=core.quit, name='shutdown')
+    user_input = get_info()
     screen = visual.Window(monitor = "testMonitor", fullscr = True, rgb=(-1,-1,-1))
-    clock = core.Clock()
 
+    los = list()
+    ###Section 1###
+    messages = [visual.TextStim(screen, text=instruction, pos = (0.0, 0.0), color = (1.0,1.0,1.0), height = .09, wrapWidth = None) for instruction in config['instructions']]
+    los.append(section([stimulus(messages,render_draw,while_paused=True,manual_next=True)]))
+
+    ###Section 2###
     # sort images
-    images = [visual.ImageStim(screen, image = file) for file in sorted(filenames)] # list comprehension for each image file
-
+    images = [visual.ImageStim(screen, image = file) for file in sorted(glob.glob(f'img_stim/set{user_input[1]}/dot-to-dot/*.jpg'))] # list comprehension for each image file
     # sounds
-    order = open('audio_stim/audio_stim_order.txt','r').read()
+    order = open('audio_stim/audio_stim_order.txt','r').read().split()
     audio_dict = yaml.safe_load(open('audio_stim/audio.yml','r'))
-    sound_files = [audio_dict['files'][int(k)] for k in order.split()]
-    sounds = [Sound(file,secs=0.3) for file in sound_files]
+    sounds = [Sound(file,secs=0.3) for file in [audio_dict['files'][int(k)] for k in order]]
     audio = []
     for sound in sounds:
         audio += [sound] + [None for i in range(17)]
 
-    components = [stimulus(images,render_image,while_paused=True),stimulus(audio,render_sound)]
-    event.globalKeys.add(key='q', func=core.quit, name='shutdown')
-    event.globalKeys.add(key='p', func=pause, func_args=[components], name='pause')
-    event.globalKeys.add(key='r', func=resume, func_args=[components], name='resume')
+    los.append(section([stimulus(images,render_draw,while_paused=True,manual_next=True),stimulus(audio,render_sound,manual_next=True)]))
 
-    while True:
-        for component in components:
-            component.expose()
-        screen.flip()
+    clock = core.Clock()
+    for sect in los:
+        sect.run_section(screen)
 
 if __name__ == '__main__':
     main()

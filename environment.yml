@@ -1,6 +1,7 @@
-name: dot-exp
+name: dot-experiment
 dependencies:
-  - python=3.7
+  - python=3.6.8
   - pip=19.0.3
+  - pyqt==5.9.2
   - pip:
     - psychopy==3.0.7

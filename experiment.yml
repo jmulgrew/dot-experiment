@@ -1,9 +1,15 @@
-instructions: |
-                In this experiment you will listen to a language made up of nonsense words. Please pay attention and listen carefully.
+instructions:
+  - |
+      In this experiment you will listen to a language made up of nonsense words. Please pay attention and listen carefully.
 
-                Later in the experiment you will be tested on the words that you have learned.
+      Later in the experiment you will be tested on the words that you have learned.
 
-                Press the space bar for further instructions.
+      Press the space bar for further instructions.
 
-instructions2: |
-                  Press the space bar to begin the experiment.
+  - |
+      Press the space bar to begin the experiment.
+
+user_input:
+  "Subject ID": ''
+  "Condition Number": !!python/tuple [1,2,3]
+order: !!python/tuple ['Subject ID','Condition Number']
