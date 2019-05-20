@@ -6,7 +6,6 @@ class section:
 
     def __init__(self,stimuli):
         self.stimuli = stimuli
-        self.clock = False
 
     def pause(self):
         for component in self.stimuli:
@@ -16,15 +15,21 @@ class section:
         for component in self.stimuli:
             component.resume()
 
-    def next(self):
-        for component in self.stimuli:
-            component.next()
+    def space(self):
+        for stim in self.stimuli:
+            stim.space()
 
     def run_section(self,screen):
-        event.globalKeys.add(key='p', func=self.pause, name='pause')
-        event.globalKeys.add(key='r', func=self.resume, name='resume')
-        event.globalKeys.add(key='space', func=self.next, name='next')
-        while True:
-            for stimulus in self.stimuli:
-                stimulus.expose()
+        event.globalKeys.add(key='p',       func=self.pause,    name='pause')
+        event.globalKeys.add(key='r',       func=self.resume,   name='resume')
+        event.globalKeys.add(key='space',   func=self.space,    name='space')
+
+        done = False
+        while not done:
+            total  = sum([stimulus.expose() for stimulus in self.stimuli])
+            done = sum([stimulus.done for stimulus in self.stimuli]) > 0
             screen.flip()
+            
+        event.globalKeys.remove(key='p')
+        event.globalKeys.remove(key='r')
+        event.globalKeys.remove(key='space')
