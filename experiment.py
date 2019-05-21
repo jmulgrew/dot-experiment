@@ -7,9 +7,8 @@ import glob
 import os
 
 import yaml
-from psychopy import core, visual, event, gui, prefs
+from psychopy import core, visual, logging, event, gui, prefs
 from psychopy.sound import Sound
-
 
 from section import *
 from stimulus import *
@@ -27,7 +26,6 @@ def get_input():
     if my_gui.OK:
         return my_gui.data
     quit()
-
 
 def main():
     event.globalKeys.add(key='q', func=core.quit, name='shutdown')
@@ -138,9 +136,19 @@ def main():
 
     ### Run sections
     section1.run_section(screen)
+    screen.recordFrameIntervals = True
+    screen.refreshThreshold = 1/60 + 0.004 # based on 60hz refresh
+    logging.console.setLevel(logging.WARNING)
+    print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+
     section2.run_section(screen)
+    print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+
     section3.run_section(screen)
+    print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+
     section4.run_section(screen)
+    print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
 if __name__ == '__main__':
     main()

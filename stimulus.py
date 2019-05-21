@@ -19,10 +19,12 @@ class stimulus:
         val = self.render(self)
         self.move(self)
         return val
+
     def pause(self):
         '''Pauses the experiment according to a key press.
         '''
         self.paused = True
+
     def resume(self):
         '''Resumes the experiment after a pause, according to a key press.
         '''
