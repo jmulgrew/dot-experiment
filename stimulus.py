@@ -13,8 +13,7 @@ class stimulus:
 
     def expose(self):
         '''Reveals the next item in the array (whether image or sound) as long
-        as the experiment is not paused. It then increments the current item
-        to continue going through the array.
+        as the experiment is not paused.
         '''
         val = self.render(self)
         self.move(self)

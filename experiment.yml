@@ -6,12 +6,12 @@ instructions:
 
         Later in the experiment you will be tested on the words that you have learned.
 
-        Press the space bar for further instructions
+        Press the space bar for further instructions.
 
   - img: img_stim/set2/intro/dot_044.jpg
     text:
       |
-        Press the space bar to begin the experiment
+        Please wait for further instructions.
 
 user_input:
   "Subject ID": ''

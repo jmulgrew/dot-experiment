@@ -28,9 +28,9 @@ def get_input():
     quit()
 
 def main():
-    event.globalKeys.add(key='q', func=core.quit, name='shutdown')
-    user_input = get_input()
-    screen = visual.Window(monitor = "testMonitor", size = [800, 450], fullscr = False, color = (-1.0,-1.0,-1.0))
+    event.globalKeys.add(key='q', func=core.quit, name='shutdown') # global shutdown
+    user_input = get_input() # get subject  information using the gui
+    screen = visual.Window(monitor = "testMonitor", size = [800, 450], fullscr = False, color = (-1.0,-1.0,-1.0)) # set screen
     ############################################################################
     def do_nothing(stim):
         pass
@@ -55,10 +55,10 @@ def main():
         items = list()
         for instruct in instructions:
             content = list()
-            if instruct['text'] and instruct['img']:
+            if instruct['text'] and instruct['img']: # second instruction screen
                 content.append(visual.TextStim(screen, text=instruct['text'], pos = (0.0, -0.6), color = (1.0,1.0,1.0), height = .09, wrapWidth = None))
                 content.append(visual.ImageStim(screen,image = instruct['img'], pos = (0.0, 0.0), size=(0.8,0.8)))
-            else:
+            else: # first instruction screen
                 content.append(visual.TextStim(screen, text=instruct['text'], pos = (0.0, 0.0), color = (1.0,1.0,1.0), height = .09, wrapWidth = None))
             items.append({ 'content': content, 'value': 0})
 
@@ -127,28 +127,29 @@ def main():
         create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/intro/*.jpg')),False),
     ])
     section3 = section([
-        create_images(sorted(glob.glob(f'img_stim/set1/dot-to-dot/*.jpg')),True,frames = 900),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/dot-to-dot/*.jpg')),True,frames = 900),
     ])
     section4 = section([
-        create_images(sorted(glob.glob(f'img_stim/set1/dot-to-dot/*.jpg')),True),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/dot-to-dot/*.jpg')),True),
         create_sounds(yaml.safe_load(open('audio_stim/audio.yml','r')),open('audio_stim/audio_stim_order.txt','r').read().split(),18),
     ])
 
     ### Run sections
-    section1.run_section(screen)
-    screen.recordFrameIntervals = True
-    screen.refreshThreshold = 1/60 + 0.004 # based on 60hz refresh
-    logging.console.setLevel(logging.WARNING)
-    print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+    d = {}
+    section1.run_section(screen, d)
+    # screen.recordFrameIntervals = True
+    # screen.refreshThreshold = 1/60 + 0.004 # based on 60hz refresh
+    # logging.console.setLevel(logging.WARNING)
+    # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
-    section2.run_section(screen)
-    print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+    section2.run_section(screen, d)
+    # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
-    section3.run_section(screen)
-    print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+    new_d = section3.run_section(screen, d)
+    # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
-    section4.run_section(screen)
-    print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+    section4.run_section(screen, d)
+    # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
 if __name__ == '__main__':
     main()
