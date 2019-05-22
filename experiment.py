@@ -121,6 +121,7 @@ def main():
     waiting.draw()
     screen.flip()
 
+
     ### Prep Sections ###
     section1 = section([create_instructions(config['instructions'])])
     section2 = section([
