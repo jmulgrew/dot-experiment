@@ -1,6 +1,9 @@
 ### Dot Experiment Fundamentals & Resources
 
 ##### Next steps:
+- Add dictionary that stores stimuli timing information for all sections (which syllable was presented, at what time, at what time exp is paused/resumed, if critical dot img appears with syllable onset, etc).
+- Add serial port code that sends value of the audio stimuli (which syllable was presented) and if the critical dot frame appeared with that syllable.
+- Fix timing issues and check to ensure we are not dropping frames/lagging.
 - Find video for "naturalistic" visual stimuli presentation.
   - Splice video into frames similar to dot stimuli, for all frequencies.
 

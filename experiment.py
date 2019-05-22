@@ -135,7 +135,7 @@ def main():
     ])
 
     ### Run sections
-    d = {}
+    d = {} # this will be the dictionary where i store experiment info
     section1.run_section(screen, d)
     # screen.recordFrameIntervals = True
     # screen.refreshThreshold = 1/60 + 0.004 # based on 60hz refresh
@@ -145,7 +145,7 @@ def main():
     section2.run_section(screen, d)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
-    new_d = section3.run_section(screen, d)
+    section3.run_section(screen, d)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
     section4.run_section(screen, d)
