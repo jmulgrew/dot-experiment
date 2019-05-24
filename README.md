@@ -1,5 +1,7 @@
 ### Dot Experiment Fundamentals & Resources
 
+[Project Progress](https://github.com/jmulgrew/dot-experiment/projects/1)
+
 ##### Important Info:
 - Given a refresh rate of 16.667 (CRT monitor), we can present 60 images every second.
 - Our syllable rate is 3.3 Hz, or 1.1 Hz per word. So we will present a syllable every 18 images (which should be every 300ms).
