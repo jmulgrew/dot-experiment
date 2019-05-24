@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr  1 11:53:18 2019
+Created on Mon Apr 1, 2019
 @author: jmulgrew
 """
 import glob
 import os
+import csv
 
 import yaml
 from psychopy import core, visual, logging, event, gui, prefs
@@ -136,21 +137,33 @@ def main():
     ])
 
     ### Run sections
-    d = {} # this will be the dictionary where i store experiment info
-    section1.run_section(screen, d)
-    # screen.recordFrameIntervals = True
+    keyList = ["Sec2","Sec3","Sec4"]
+    d = {key: None for key in keyList}
+
+    section1.run_section(screen)
+    # screen.recordFrameI ntervals = True
     # screen.refreshThreshold = 1/60 + 0.004 # based on 60hz refresh
     # logging.console.setLevel(logging.WARNING)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
-    section2.run_section(screen, d)
+    sec2_dict = section2.run_section(screen)
+    d.update(Sec2 = sec2_dict)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
-    section3.run_section(screen, d)
+    sec3_dict = section3.run_section(screen)
+    d.update(Sec3 = sec3_dict)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
-    section4.run_section(screen, d)
+    sec4_dict = section4.run_section(screen)
+    d.update(Sec4 = sec4_dict)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+
+    # write out dictionaries to csv file
+    with open('testdict.csv','w') as f:
+        for key in d.keys():
+            f.write("%s,%s\n"%(key,d[key]))
+    f.close()
+    print(d)
 
 if __name__ == '__main__':
     main()
