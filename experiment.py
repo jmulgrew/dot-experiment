@@ -57,10 +57,10 @@ def main():
         for instruct in instructions:
             content = list()
             if instruct['text'] and instruct['img']: # second instruction screen
-                content.append(visual.TextStim(screen, text=instruct['text'], pos = (0.0, -0.6), color = (1.0,1.0,1.0), height = .09, wrapWidth = None))
-                content.append(visual.ImageStim(screen,image = instruct['img'], pos = (0.0, 0.0), size=(0.8,0.8)))
+                content.append(visual.TextStim(screen, text=instruct['text'], alignHoriz='center', alignVert='center', pos = (0.0, -0.65), color = (1.0,1.0,1.0), height = .08, wrapWidth = 0.97))
+                content.append(visual.ImageStim(screen,image = instruct['img'], pos = (0.0, 0.1), size=(0.85,0.9)))
             else: # first instruction screen
-                content.append(visual.TextStim(screen, text=instruct['text'], pos = (0.0, 0.0), color = (1.0,1.0,1.0), height = .09, wrapWidth = None))
+                content.append(visual.TextStim(screen, text=instruct['text'], alignHoriz='center', alignVert='center', pos = (0.0, 0.0), color = (1.0,1.0,1.0), height = .08, wrapWidth = 0.97))
             items.append({ 'content': content, 'value': 0})
 
         return stimulus(items,render,do_nothing,next)
@@ -137,33 +137,39 @@ def main():
     ])
 
     ### Run sections
-    keyList = ["Sec2","Sec3","Sec4"]
-    d = {key: None for key in keyList}
+    # create a master list for dictionaries
+    dict_list = []
 
+    # Section 1: INSTRUCTIONS
     section1.run_section(screen)
-    # screen.recordFrameI ntervals = True
+    # screen.recordFrameIntervals = True
     # screen.refreshThreshold = 1/60 + 0.004 # based on 60hz refresh
     # logging.console.setLevel(logging.WARNING)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
+    # Section 2: INTRO DOTS
     sec2_dict = section2.run_section(screen)
-    d.update(Sec2 = sec2_dict)
+    dict_list.append(sec2_dict)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
+    # Section 3: DOT-TO-DOT IMAGES WITHOUT AUDIO
     sec3_dict = section3.run_section(screen)
-    d.update(Sec3 = sec3_dict)
+    dict_list.append(sec3_dict)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
+    # Section 4: DOT-TO-DOT IMAGES WITH AUDIO
     sec4_dict = section4.run_section(screen)
-    d.update(Sec4 = sec4_dict)
+    dict_list.append(sec4_dict)
+
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
     # write out dictionaries to csv file
+    keys = dict_list[0].keys()
     with open('testdict.csv','w') as f:
-        for key in d.keys():
-            f.write("%s,%s\n"%(key,d[key]))
+        dict_writer = csv.DictWriter(f, keys)
+        dict_writer.writeheader()
+        dict_write.writerows(dict_list)
     f.close()
-    print(d)
 
 if __name__ == '__main__':
     main()

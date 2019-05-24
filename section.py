@@ -18,7 +18,7 @@ class section:
     def space(self):
         for stim in self.stimuli:
             stim.space()
-            
+
     def run_section(self,screen):
         event.globalKeys.add(key='p',       func=self.pause,    name='pause')
         event.globalKeys.add(key='r',       func=self.resume,   name='resume')
