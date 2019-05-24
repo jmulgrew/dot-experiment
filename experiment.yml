@@ -15,5 +15,6 @@ instructions:
 
 user_input:
   "Subject ID": ''
+  "Image Set": !!python/tuple ['D','N']
   "Condition Number": !!python/tuple [1,2,3]
-order: !!python/tuple ['Subject ID','Condition Number']
+order: !!python/tuple ['Subject ID','Image Set','Condition Number']

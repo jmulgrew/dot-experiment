@@ -126,13 +126,13 @@ def main():
     ### Prep Sections ###
     section1 = section([create_instructions(config['instructions'])])
     section2 = section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/intro/*.jpg')),False),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[2]}/intro/*.jpg')),False),
     ])
     section3 = section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/dot-to-dot/*.jpg')),True,frames = 900),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[2]}/dot-to-dot/*.jpg')),True,frames = 900),
     ])
     section4 = section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/dot-to-dot/*.jpg')),True),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[2]}/dot-to-dot/*.jpg')),True),
         create_sounds(yaml.safe_load(open('audio_stim/audio.yml','r')),open('audio_stim/audio_stim_order.txt','r').read().split(),18),
     ])
 
@@ -160,15 +160,14 @@ def main():
     # Section 4: DOT-TO-DOT IMAGES WITH AUDIO
     sec4_dict = section4.run_section(screen)
     dict_list.append(sec4_dict)
-
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
     # write out dictionaries to csv file
     keys = dict_list[0].keys()
-    with open('testdict.csv','w') as f:
+    with open(f'sub_files/Subject_{user_input[0]}_{user_input[1]}{user_input[2]}.csv','w') as f:
         dict_writer = csv.DictWriter(f, keys)
         dict_writer.writeheader()
-        dict_write.writerows(dict_list)
+        dict_writer.writerows(dict_list)
     f.close()
 
 if __name__ == '__main__':
