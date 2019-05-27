@@ -121,10 +121,17 @@ def main():
 
         return stimulus(items,render,move,do_nothing)
     ############################################################################
+    # figure out number of intro frames based on condition selected
+    if user_input[2] == 1:
+        intro_frames = 375
+    elif user_input[2] == 2:
+        intro_frames = 281
+    else:
+        intro_frames = 188
+
     waiting = visual.TextStim(screen, text='Please wait while we prepare the experiment...')
     waiting.draw()
     screen.flip()
-
 
     ### Prep Sections ###
     section1 = section([create_instructions(config['instructions'])])
@@ -132,7 +139,7 @@ def main():
         create_images(sorted(glob.glob(f'img_stim/set{user_input[2]}/intro/*.jpg')),False),
     ])
     section3 = section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[2]}/dot-to-dot/*.jpg')),True,frames = 900),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[2]}/dot-to-dot/*.jpg')),True,frames = (900 - intro_frames)),
     ])
     section4 = section([
         create_images(sorted(glob.glob(f'img_stim/set{user_input[2]}/dot-to-dot/*.jpg')),True),
@@ -175,6 +182,7 @@ def main():
             else:
                 final_dict[key] = value
     df = pd.DataFrame.from_dict(final_dict)
+    df = df[df.val != 0] # we only want to look at frames where something occurred (not zero)
     df.to_csv(f'sub_files/Subject_{user_input[0]}_{user_input[1]}{user_input[2]}.csv', index_label = 'frame')
 
 if __name__ == '__main__':
