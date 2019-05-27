@@ -5,9 +5,12 @@ Created on Mon Apr 1, 2019
 """
 import glob
 import os
-import csv
 
+import csv
 import yaml
+import numpy as np
+import pandas as pd
+
 from psychopy import core, visual, logging, event, gui, prefs
 from psychopy.sound import Sound
 
@@ -163,12 +166,16 @@ def main():
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
     # write out dictionaries to csv file
-    keys = dict_list[0].keys()
-    with open(f'sub_files/Subject_{user_input[0]}_{user_input[1]}{user_input[2]}.csv','w') as f:
-        dict_writer = csv.DictWriter(f, keys)
-        dict_writer.writeheader()
-        dict_writer.writerows(dict_list)
-    f.close()
+    final_dict = {}
+    for list_item in dict_list:
+        for key, value in list_item.items():
+            if key in list(final_dict):
+                for entry in value:
+                    final_dict[key].append(entry)
+            else:
+                final_dict[key] = value
+    df = pd.DataFrame.from_dict(final_dict)
+    df.to_csv(f'sub_files/Subject_{user_input[0]}_{user_input[1]}{user_input[2]}.csv', index_label = 'frame')
 
 if __name__ == '__main__':
     main()
