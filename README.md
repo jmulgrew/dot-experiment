@@ -1,19 +1,6 @@
 ### Dot Experiment Fundamentals & Resources
 
-##### Next steps:
-- Add dictionaries that store stimuli information for each section.
-  - Master dictionary will contain dictionaries for each section.
-  - Each dictionary will have two or three keys (tbd): Time, Event, Value...
-    -  Values for the keys will be time according to core.clock, event type (stimuli or user), and then corresponding value (e.g., syllable codes). Needs to be able to store pause and resume as values. We can make up an arbitrary number... e.g., pause = 999... resume = 777
-  - This should be written to a csv file at the end of the experiment, with the subject number, img stimulus type (nat or dot), and condition number as the filename.
-      - E.g., "Subject_1_N1" "Subject_2_D1" "Subject_3_N2" "Subject_4_D2", etc.
-- Right now section 3 is showing 900 frames, to represent 15 seconds before audio... this needs to be fixed. It should actually be 900 frames minus however many frames are in the intro... because the intro dots count into that 15 second time window.
-- Add pyserial to [experiment.yml](https://pyserial.readthedocs.io/en/latest/pyserial.html#requirements).
-- Add serial port code that sends value of the audio stimuli (which syllable was presented) and if the critical dot frame appeared with that syllable (add 100 to code).
-- Fix timing issues, check to ensure frames are not being dropped.
-- Find video for "naturalistic" visual stimuli presentation.
-  - Splice video into frames similar to dot stimuli, for all frequencies.
-  - Add images to img stim folder.  
+[Project Progress](https://github.com/jmulgrew/dot-experiment/projects/1)
 
 ##### Important Info:
 - Given a refresh rate of 16.667 (CRT monitor), we can present 60 images every second.
