@@ -34,7 +34,7 @@ def get_input():
 def main():
     event.globalKeys.add(key='q', func=core.quit, name='shutdown') # global shutdown
     user_input = get_input() # get subject  information using the gui
-    screen = visual.Window(monitor = "testMonitor", size = [800, 450], fullscr = False, color = (-1.0,-1.0,-1.0)) # set screen
+    screen = visual.Window(monitor = "testMonitor", size = [800, 450], fullscr = True, color = (-1.0,-1.0,-1.0)) # set screen
     ############################################################################
     def do_nothing(stim):
         pass
@@ -136,13 +136,13 @@ def main():
     ### Prep Sections ###
     section1 = section([create_instructions(config['instructions'])])
     section2 = section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[2]}/intro/*.jpg')),False),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/set{user_input[2]}/intro/*.jpg')),False),
     ])
     section3 = section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[2]}/dot-to-dot/*.jpg')),True,frames = (900 - intro_frames)),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/set{user_input[2]}/dot-to-dot/*.jpg')),True,frames = (900 - intro_frames)),
     ])
     section4 = section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[2]}/dot-to-dot/*.jpg')),True),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/set{user_input[2]}/dot-to-dot/*.jpg')),True),
         create_sounds(yaml.safe_load(open('audio_stim/audio.yml','r')),open('audio_stim/audio_stim_order.txt','r').read().split(),18),
     ])
 
@@ -159,18 +159,19 @@ def main():
 
     # Section 2: INTRO DOTS
     sec2_dict = section2.run_section(screen)
-    dict_list.append(sec2_dict)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
     # Section 3: DOT-TO-DOT IMAGES WITHOUT AUDIO
     sec3_dict = section3.run_section(screen)
-    dict_list.append(sec3_dict)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
     # Section 4: DOT-TO-DOT IMAGES WITH AUDIO
     sec4_dict = section4.run_section(screen)
-    dict_list.append(sec4_dict)
     # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+
+    dict_list.append(sec2_dict)
+    dict_list.append(sec3_dict)
+    dict_list.append(sec4_dict)
 
     # write out dictionaries to csv file
     final_dict = {}
