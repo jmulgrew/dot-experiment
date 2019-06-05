@@ -8,13 +8,12 @@ instructions:
 
         Press the space bar to continue.
 
-  - img: img_stim/setD/set2/intro/dot_044.jpg
+  - img: img_stim/setD/set2/intro/image_044.jpg
     text:
       |
         Please wait for further instructions.
 
 user_input:
-  "Subject ID": ''
   "Image Set": !!python/tuple ['D','N']
   "Condition Number": !!python/tuple [1,2,3]
-order: !!python/tuple ['Subject ID','Image Set','Condition Number']
+order: !!python/tuple ['Image Set','Condition Number']

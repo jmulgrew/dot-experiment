@@ -6,7 +6,6 @@ Created on Mon Apr 1, 2019
 import glob
 import os
 
-import csv
 import yaml
 import numpy as np
 import pandas as pd
@@ -22,19 +21,25 @@ prefs.general['audioLib'] = ['pygame']
 config = yaml.load(open('experiment.yml', 'r').read(),Loader=yaml.Loader)
 
 def get_input():
-    '''Creates a dialogue box to get the subject number and to choose the
-    condition that will be run. Based on the condition specified, the
-    function finds the correct set of dot images to use.
+    '''Creates a dialogue box to get the condition number and stimuli type. Based on
+    this information, the function finds the correct set of images to use.
     '''
     my_gui = gui.DlgFromDict(config['user_input'],order=config['order'])
     if my_gui.OK:
         return my_gui.data
     quit()
 
+def record_data():
+    '''Eventually, this function will record data from the experiment, even if "q"
+    is pressed and the experiment ends early. It collects and writes out dictionaries
+    to a CSV file. The subject number is based on how many files exist in subject folder
+    already.
+    '''
+
 def main():
     event.globalKeys.add(key='q', func=core.quit, name='shutdown') # global shutdown
     user_input = get_input() # get subject  information using the gui
-    screen = visual.Window(monitor = "testMonitor", size = [800, 450], fullscr = True, color = (-1.0,-1.0,-1.0)) # set screen
+    screen = visual.Window(monitor = "testMonitor", size = [800, 450], fullscr = False, color = (-1.0,-1.0,-1.0)) # set screen
     ############################################################################
     def do_nothing(stim):
         pass
@@ -121,13 +126,6 @@ def main():
 
         return stimulus(items,render,move,do_nothing)
     ############################################################################
-    # figure out number of intro frames based on condition selected
-    if user_input[2] == 1:
-        intro_frames = 375
-    elif user_input[2] == 2:
-        intro_frames = 281
-    else:
-        intro_frames = 188
 
     waiting = visual.TextStim(screen, text='Please wait while we prepare the experiment...')
     waiting.draw()
@@ -135,56 +133,42 @@ def main():
 
     ### Prep Sections ###
     section1 = section([create_instructions(config['instructions'])])
+
     section2 = section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/set{user_input[2]}/intro/*.jpg')),False),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/intro/*.jpg')),False),
     ])
+    intro_frames = len(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/intro/*.jpg'))
     section3 = section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/set{user_input[2]}/dot-to-dot/*.jpg')),True,frames = (900 - intro_frames)),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/cycle/*.jpg')),True,frames = (900 - intro_frames)),
     ])
     section4 = section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[1]}/set{user_input[2]}/dot-to-dot/*.jpg')),True),
+        create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/cycle/*.jpg')),True),
         create_sounds(yaml.safe_load(open('audio_stim/audio.yml','r')),open('audio_stim/audio_stim_order.txt','r').read().split(),18),
     ])
 
     ### Run sections
-    # create a master list for dictionaries
-    dict_list = []
 
     # Section 1: INSTRUCTIONS
     section1.run_section(screen)
-    # screen.recordFrameIntervals = True
-    # screen.refreshThreshold = 1/60 + 0.004 # based on 60hz refresh
-    # logging.console.setLevel(logging.WARNING)
-    # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
 
     # Section 2: INTRO DOTS
-    sec2_dict = section2.run_section(screen)
-    # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+    section2.run_section(screen)
 
     # Section 3: DOT-TO-DOT IMAGES WITHOUT AUDIO
-    sec3_dict = section3.run_section(screen)
-    # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+    section3.run_section(screen)
 
     # Section 4: DOT-TO-DOT IMAGES WITH AUDIO
-    sec4_dict = section4.run_section(screen)
-    # print('Overall, %i frames were dropped.' % screen.nDroppedFrames)
+    section4.run_section(screen)
 
-    dict_list.append(sec2_dict)
-    dict_list.append(sec3_dict)
-    dict_list.append(sec4_dict)
-
-    # write out dictionaries to csv file
-    final_dict = {}
-    for list_item in dict_list:
-        for key, value in list_item.items():
-            if key in list(final_dict):
-                for entry in value:
-                    final_dict[key].append(entry)
-            else:
-                final_dict[key] = value
-    df = pd.DataFrame.from_dict(final_dict)
-    df = df[df.val != 0] # we only want to look at frames where something occurred (not zero)
-    df.to_csv(f'sub_files/Subject_{user_input[0]}_{user_input[1]}{user_input[2]}.csv', index_label = 'frame')
+    # Collect & write out dictionaries to csv file
+    data = list()
+    data += section1.data
+    data += section2.data
+    data += section3.data
+    data += section4.data
+    df = pd.DataFrame(data)
+    sub_num = len(glob.glob('sub_files/Subject_*.csv')) + 1
+    df.to_csv(f'sub_files/Subject_{sub_num}_{user_input[0]}{user_input[1]}.csv', index = False)
 
 if __name__ == '__main__':
     main()
