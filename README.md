@@ -20,4 +20,3 @@
 - [Sound](https://www.psychopy.org/api/sound.html)
 - [Pause/Quit: Global Key Events](https://www.psychopy.org/coder/globalKeys.html#adding-a-global-event-key-simple)
 - [Sending Triggers with Serial Port](https://pyserial.readthedocs.io/en/latest/)
-- [Storing Data](https://www.psychopy.org/api/data.html)

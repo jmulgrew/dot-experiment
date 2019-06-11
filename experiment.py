@@ -39,7 +39,7 @@ def record_data():
 def main():
     event.globalKeys.add(key='q', func=core.quit, name='shutdown') # global shutdown
     user_input = get_input() # get subject  information using the gui
-    screen = visual.Window(monitor = "testMonitor", size = [800, 450], fullscr = False, color = (-1.0,-1.0,-1.0)) # set screen
+    screen = visual.Window(monitor = "testMonitor", size=[1024,768], fullscr = True, color = (-1.0,-1.0,-1.0)) # set screen
     ############################################################################
     def do_nothing(stim):
         pass
@@ -133,7 +133,6 @@ def main():
 
     ### Prep Sections ###
     section1 = section([create_instructions(config['instructions'])])
-
     section2 = section([
         create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/intro/*.jpg')),False),
     ])
@@ -151,13 +150,13 @@ def main():
     # Section 1: INSTRUCTIONS
     section1.run_section(screen)
 
-    # Section 2: INTRO DOTS
+    # Section 2: INTRO ANIMATION
     section2.run_section(screen)
 
-    # Section 3: DOT-TO-DOT IMAGES WITHOUT AUDIO
+    # Section 3: CYCLE IMAGES WITHOUT AUDIO
     section3.run_section(screen)
 
-    # Section 4: DOT-TO-DOT IMAGES WITH AUDIO
+    # Section 4: CYCLE IMAGES WITH AUDIO
     section4.run_section(screen)
 
     # Collect & write out dictionaries to csv file

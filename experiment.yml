@@ -2,16 +2,16 @@ instructions:
   - img:
     text:
       |
-        In this experiment you will listen to a language made up of nonsense words. Please pay attention and listen carefully.
+        In this experiment we are looking at whether viewing a simple animation helps people relax.
 
-        Later in the experiment you will be tested on the words that you have learned.
+        You will watch a video and listen to a nonsense language. Please pay attention and listen carefully.
 
         Press the space bar to continue.
 
   - img: img_stim/setD/set2/intro/image_044.jpg
     text:
       |
-        Please wait for further instructions.
+        Please wait for further instructions from the experimenter.
 
 user_input:
   "Image Set": !!python/tuple ['D','N']

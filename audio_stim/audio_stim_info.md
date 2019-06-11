@@ -19,5 +19,3 @@ There are 4 different "nonsense" words that are made up of three syllables each.
 10 = wave.open('audio_stim/ga.wav', 'r')
 3 = wave.open('audio_stim/ba.wav', 'r')
 6 = wave.open('audio_stim/lu.wav', 'r')
-
-In the experiment, we want the FIRST syllable in each nonsense word to start at the exact time the dot crosses the fixation point. This way, it will be in phase with the visual stimuli. We can't just play all the audio, we have to ensure that every 3rd syllable aligns with the dot frequency and if it is too early - it needs to wait for that moment.
