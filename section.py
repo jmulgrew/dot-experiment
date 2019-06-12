@@ -71,6 +71,7 @@ class section:
                     'type': 'frame',
                     'val': total,
                     })
+                # port.write(val)
 
         event.globalKeys.remove(key='p')
         event.globalKeys.remove(key='r')

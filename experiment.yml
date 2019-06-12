@@ -12,7 +12,11 @@ instructions:
     text:
       |
         Please wait for further instructions from the experimenter.
-
+endscreen:
+  - img:
+    text:
+      |
+        Please wait, the experimenter will be right with you.
 user_input:
   "Image Set": !!python/tuple ['D','N']
   "Condition Number": !!python/tuple [1,2,3]
