@@ -142,11 +142,17 @@ def main():
 
     ### Prep Sections ###
     config['instructions'][1]['img'] = config['instructions'][1]['img'].format(f'set{user_input[0]}')
+    if user_input[0] == "N":
+        config['instructions'][0]['text'] = config['othertext']
+    else:
+        config['instructions'][0]['text'] = config['instructions'][0]['text']
+
     sections.append(section([create_instructions(config['instructions'])]))
     sections.append(section([
         create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/intro/*.jpg')),False),
     ]))
     intro_frames = len(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/intro/*.jpg'))
+
     sections.append(section([
         create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/cycle/*.jpg')),True,frames = (900 - intro_frames)),
     ]))

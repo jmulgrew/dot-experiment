@@ -12,6 +12,15 @@ instructions:
     text:
       |
         Please wait for further instructions from the experimenter.
+
+othertext:
+      |
+        In this experiment we are looking at whether viewing an image from nature helps people relax.
+
+        You will watch a pleasant video and listen to a nonsense language. Please pay attention and listen carefully.
+
+        Press the space bar to continue.
+
 endscreen:
   - img:
     text:
