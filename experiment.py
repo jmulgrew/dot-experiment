@@ -8,7 +8,9 @@ import os
 
 import yaml
 import pandas as pd
+
 import serial
+from serial import SerialException
 
 from psychopy import core, visual, logging, event, gui, prefs
 from psychopy.sound import Sound
@@ -32,9 +34,9 @@ def get_input():
 def main():
     user_input = get_input() # get subject  information using the gui
     screen = visual.Window(monitor = "testMonitor", size=[1024,768], fullscr = False, color = (-1.0,-1.0,-1.0)) # set screen
-    if False: # if this port does exist (TO-DO)
+    try: # see if port exists
         port = serial.Serial('COM5', 115200, timeout= 1)
-    else:
+    except serial.SerialException: # if it doesn't exist, then port is none
         port = None
     ############################################################################
     # Exit
@@ -141,25 +143,30 @@ def main():
     screen.flip()
 
     ### Prep Sections ###
+    # this is temporary because we are using two different stimuli sets for piloting
     config['instructions'][1]['img'] = config['instructions'][1]['img'].format(f'set{user_input[0]}')
     if user_input[0] == "N":
         config['instructions'][0]['text'] = config['othertext']
     else:
         config['instructions'][0]['text'] = config['instructions'][0]['text']
 
+    # SECTION 1: INSTUCTION SCREEN
     sections.append(section([create_instructions(config['instructions'])]))
+    # SECTION 2: INTRO IMAGE CYCLE WITH NO AUDIO
     sections.append(section([
         create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/intro/*.jpg')),False),
     ]))
     intro_frames = len(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/intro/*.jpg'))
-
+    # SECTION 3: IMAGE CYCLE WITH NO AUDIO
     sections.append(section([
         create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/cycle/*.jpg')),True,frames = (900 - intro_frames)),
     ]))
+    # SECTION 4: IMAGE CYCLE WITH AUDIO
     sections.append(section([
         create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/cycle/*.jpg')),True),
         create_sounds(yaml.safe_load(open('audio_stim/audio.yml','r')),open('audio_stim/audio_stim_order.txt','r').read().split(),18),
     ]))
+    # SECTION 5: ENDING SCREEN
     sections.append(section([create_instructions(config['endscreen'])]))
 
     ### Run sections
