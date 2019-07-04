@@ -23,7 +23,7 @@ class section:
             'section_id': self.section_num,
             'frame': self.frame,
             'type': 'pause',
-            'val': -999,
+            'val': 99,
             })
 
     def resume(self):
@@ -35,7 +35,7 @@ class section:
             'section_id': self.section_num,
             'frame': self.frame,
             'type': 'resume',
-            'val': -999,
+            'val': 99,
             })
 
     def space(self):
@@ -47,10 +47,10 @@ class section:
             'section_id': self.section_num,
             'frame': self.frame,
             'type': 'space',
-            'val': -999,
+            'val': 99,
             })
 
-    def run_section(self,screen,port = None):
+    def run_section(self,screen,port):
         section.section_timer.reset()
         event.globalKeys.add(key='p',       func=self.pause,    name='pause')
         event.globalKeys.add(key='r',       func=self.resume,   name='resume')
@@ -71,8 +71,9 @@ class section:
                     'type': 'frame',
                     'val': total,
                     })
-                if port:
-                    port.write(val)
+                port.write(bytes(total))
+                #if port:
+                    #port.write(val)
 
         event.globalKeys.remove(key='p')
         event.globalKeys.remove(key='r')

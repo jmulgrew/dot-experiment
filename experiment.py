@@ -34,10 +34,12 @@ def get_input():
 def main():
     user_input = get_input() # get subject  information using the gui
     screen = visual.Window(monitor = "testMonitor", size=[1024,768], fullscr = False, color = (-1.0,-1.0,-1.0)) # set screen
-    try: # see if port exists
-        port = serial.Serial('COM5', 115200, timeout= 1)
-    except serial.SerialException: # if it doesn't exist, then port is none
-        port = None
+    port = serial.Serial("COM7", baudrate = 115200, timeout =  1)
+    port.write(bytes(5))
+    #try: # see if port exists
+        #port = serial.Serial('COM5', 115200, timeout= 1)
+    #except serial.SerialException: # if it doesn't exist, then port is none
+        #port = None
     ############################################################################
     # Exit
     sections = []
@@ -174,5 +176,8 @@ def main():
         s.run_section(screen,port)
     endexp()
 
+    ### Close serial port
+    port.close()
+    
 if __name__ == '__main__':
     main()
