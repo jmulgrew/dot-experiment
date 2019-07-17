@@ -72,7 +72,7 @@ class section:
                     'val': total,
                     })
                 if port:
-                    port.write(bytes(total))
+                    port.write(b'{total}')
 
         event.globalKeys.remove(key='p')
         event.globalKeys.remove(key='r')
