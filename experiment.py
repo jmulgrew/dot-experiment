@@ -42,6 +42,7 @@ def main():
         port = None
     ############################################################################
     # Exit
+
     sections = []
     def endexp():
         # Collect & write out dictionaries to csv file

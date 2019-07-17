@@ -50,7 +50,7 @@ class section:
             'val': 97,
             })
 
-    def run_section(self,screen,port = None):
+    def run_section(self,screen,port):
         section.section_timer.reset()
         event.globalKeys.add(key='p',       func=self.pause,    name='pause')
         event.globalKeys.add(key='r',       func=self.resume,   name='resume')
@@ -72,7 +72,7 @@ class section:
                     'val': total,
                     })
                 if port:
-                    port.write(b'{total}')
+                    port.write({total})
 
         event.globalKeys.remove(key='p')
         event.globalKeys.remove(key='r')
