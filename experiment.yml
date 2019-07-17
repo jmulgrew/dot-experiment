@@ -8,7 +8,7 @@ instructions:
 
         Press the space bar to continue.
 
-  - img: img_stim/{}/set2/intro/image_044.jpg
+  - img: img_stim/{}/set1/intro/image_001.jpg
     text:
       |
         Please wait for further instructions from the experimenter.

@@ -33,13 +33,13 @@ def get_input():
 
 def main():
     user_input = get_input() # get subject  information using the gui
-    screen = visual.Window(monitor = "testMonitor", size=[1024,768], fullscr = False, color = (-1.0,-1.0,-1.0)) # set screen
-    port = serial.Serial("COM7", baudrate = 115200, timeout =  1)
-    port.write(bytes(5))
-    #try: # see if port exists
-        #port = serial.Serial('COM5', 115200, timeout= 1)
-    #except serial.SerialException: # if it doesn't exist, then port is none
-        #port = None
+    screen = visual.Window(monitor = "testMonitor", size=[1024,768], fullscr = True, color = (-1.0,-1.0,-1.0)) # set screen
+    #port = serial.Serial("COM7", baudrate = 115200, timeout =  1)
+    #port.write(bytes(5))
+    try: # see if port exists
+        port = serial.Serial('COM7', baudrate = 115200, timeout = 1)
+    except serial.SerialException: # if it doesn't exist, then port is none
+        port = None
     ############################################################################
     # Exit
     sections = []
@@ -79,7 +79,7 @@ def main():
             content = list()
             if instruct['text'] and instruct['img']: # second instruction screen
                 content.append(visual.TextStim(screen, text=instruct['text'], alignHoriz='center', alignVert='center', pos = (0.0, -0.65), color = (1.0,1.0,1.0), height = .08, wrapWidth = 0.97))
-                content.append(visual.ImageStim(screen,image = instruct['img'], pos = (0.0, 0.1), size=(0.85,0.9)))
+                content.append(visual.ImageStim(screen,image = instruct['img'], pos = (0.0, 0.1)))
             else: # first instruction screen
                 content.append(visual.TextStim(screen, text=instruct['text'], alignHoriz='center', alignVert='center', pos = (0.0, 0.0), color = (1.0,1.0,1.0), height = .08, wrapWidth = 0.97))
             items.append({ 'content': content, 'value': 0})
@@ -178,6 +178,6 @@ def main():
 
     ### Close serial port
     port.close()
-    
+
 if __name__ == '__main__':
     main()
