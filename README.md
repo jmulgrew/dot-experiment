@@ -3,13 +3,13 @@
 ##### Important Info:
 - Given a refresh rate of 16.667 (CRT monitor), we can present 60 images every second.
 - Our syllable rate is 3.3 Hz, or 1.1 Hz per word. So we will present a syllable every 18 images (which should be every 300ms).
-- Code will be run on a PC.
 - Communication with EEG is USB-to-serial port [(exact info here)](https://www.biosemi.com/faq/USB%20Trigger%20interface%20cable.htm).
 
-##### My Frequencies:
-- "0.75 Hz" (4 syllable units): condition/image set 1
-- "1 Hz" (3 syllable units): condition/image set 2
-- "1.5 Hz" (2 syllable units): condition/image set 3
+##### Experiment Conditions:
+- Visual + Audio
+  - 0.83 Hz (4 syllable units): condition/image set 1
+  - 1.1 Hz (3 syllable units): condition/image set 2
+  - 1.6 Hz (2 syllable units): condition/image set 3
 
 ##### Resources:
 - [Information on Timing](https://www.psychopy.org/general/timing/timing.html)
