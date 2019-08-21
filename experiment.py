@@ -146,31 +146,28 @@ def main():
     screen.flip()
 
     ### Prep Sections ###
-    # this is temporary because we are using two different stimuli sets for piloting
-    config['instructions'][1]['img'] = config['instructions'][1]['img'].format(f'set{user_input[0]}')
-    if user_input[0] == "N":
-        config['instructions'][0]['text'] = config['othertext']
-    else:
-        config['instructions'][0]['text'] = config['instructions'][0]['text']
-
-    # SECTION 1: INSTUCTION SCREEN
+    # SECTION 1: RESTING STATE INSTUCTION SCREEN
+    sections.append(section[create_instructions(config['restingtext'])])
+    # SECTION 2: RESTING STATE WAIT SCREEN
+    sections.append(section([create_instructions(config['waitscreen'])]))
+    # SECTION 3: EXPERIMENT INSTRUCTIONS
     sections.append(section([create_instructions(config['instructions'])]))
-    # SECTION 2: INTRO IMAGE CYCLE WITH NO AUDIO
+    # SECTION 4: INTRO IMAGE CYCLE WITH NO AUDIO
     sections.append(section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/intro/*.jpg')),False),
+        create_images(sorted(glob.glob(f'img_stim/setN/set{user_input[0]}/intro/*.jpg')),False),
     ]))
-    intro_frames = len(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/intro/*.jpg'))
-    # SECTION 3: IMAGE CYCLE WITH NO AUDIO
+    intro_frames = len(glob.glob(f'img_stim/setN/set{user_input[0]}/intro/*.jpg'))
+    # SECTION 5: IMAGE CYCLE WITH NO AUDIO
     sections.append(section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/cycle/*.jpg')),True,frames = (900 - intro_frames)),
+        create_images(sorted(glob.glob(f'img_stim/setN/set{user_input[0}/cycle/*.jpg')),True,frames = (900 - intro_frames)),
     ]))
-    # SECTION 4: IMAGE CYCLE WITH AUDIO
+    # SECTION 6: IMAGE CYCLE WITH AUDIO
     sections.append(section([
-        create_images(sorted(glob.glob(f'img_stim/set{user_input[0]}/set{user_input[1]}/cycle/*.jpg')),True),
+        create_images(sorted(glob.glob(f'img_stim/setN/set{user_input[0]}/cycle/*.jpg')),True),
         create_sounds(yaml.safe_load(open('audio_stim/audio.yml','r')),open('audio_stim/audio_stim_order.txt','r').read().split(),18),
     ]))
-    # SECTION 5: ENDING SCREEN
-    sections.append(section([create_instructions(config['endscreen'])]))
+    # SECTION 7: ENDING SCREEN
+    sections.append(section([create_instructions(config['waitscreen'])]))
 
     ### Run sections
     for s in sections:

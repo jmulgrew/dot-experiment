@@ -1,3 +1,13 @@
+restingtext:
+      |
+        To begin the experiment, we will record your brain activity while you are "at rest". You will need to keep your
+
+        eyes on the fixation cross that will appear in the center of the screen. When this is done, a screen will
+
+        appear with instructions for the experiment.
+
+        Press the space bar to to begin.
+
 instructions:
   - img:
     text:
@@ -13,20 +23,10 @@ instructions:
       |
         Please wait for further instructions from the experimenter.
 
-othertext:
-      |
-        In this experiment we are looking at whether viewing an image from nature helps people relax.
-
-        You will watch a pleasant video and listen to a nonsense language. Please pay attention and listen carefully.
-
-        Press the space bar to continue.
-
-endscreen:
+waitscreen:
   - img:
     text:
       |
         Please wait, the experimenter will be right with you.
 user_input:
-  "Image Set": !!python/tuple ['D','N']
   "Condition Number": !!python/tuple [1,2,3]
-order: !!python/tuple ['Image Set','Condition Number']
