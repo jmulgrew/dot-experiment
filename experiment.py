@@ -23,10 +23,10 @@ prefs.general['audioLib'] = ['pygame']
 config = yaml.load(open('experiment.yml', 'r').read(),Loader=yaml.Loader)
 
 def get_input():
-    '''Creates a dialogue box to get the condition number and stimuli type. Based on
+    '''Creates a dialogue box to get the condition number. Based on
     this information, the function finds the correct set of images to use.
     '''
-    my_gui = gui.DlgFromDict(config['user_input'],order=config['order'])
+    my_gui = gui.DlgFromDict(config['user_input'])
     if my_gui.OK:
         return my_gui.data
     quit()
@@ -34,8 +34,7 @@ def get_input():
 def main():
     user_input = get_input() # get subject  information using the gui
     screen = visual.Window(monitor = "testMonitor", size=[1024,768], fullscr = True, color = (-1.0,-1.0,-1.0)) # set screen
-    #port = serial.Serial("COM7", baudrate = 115200, timeout =  1)
-    #port.write(bytes(5))
+    # Set up serial port
     try: # see if port exists
         port = serial.Serial('COM7', baudrate = 115200, timeout = 1)
     except serial.SerialException: # if it doesn't exist, then port is none
@@ -51,7 +50,7 @@ def main():
             data += s.data
         df = pd.DataFrame(data)
         sub_num = len(glob.glob('sub_files/Subject_*.csv')) + 1
-        df.to_csv(f'sub_files/Subject_{sub_num}_{user_input[0]}{user_input[1]}.csv', index = False)
+        df.to_csv(f'sub_files/Subject_{sub_num}_C{user_input[0]}.csv', index = False)
         core.quit()
     event.globalKeys.add(key='q', func=endexp, name='shutdown') # global shutdown
     ############################################################################
@@ -146,27 +145,41 @@ def main():
     screen.flip()
 
     ### Prep Sections ###
-    # SECTION 1: RESTING STATE INSTUCTION SCREEN
-    sections.append(section[create_instructions(config['restingtext'])])
-    # SECTION 2: RESTING STATE WAIT SCREEN
-    sections.append(section([create_instructions(config['waitscreen'])]))
-    # SECTION 3: EXPERIMENT INSTRUCTIONS
+
+    # if it's the third condition, change the instructions presented
+    if user_input[0] == 3:
+        config['instructions'][0]['text'] = config['altinstructions'][0]['text']
+        config['instructions'][1]['img'] = config['altinstructions'][1]['img']
+    else:
+        config['instructions'][0]['text'] = config['instructions'][0]['text']
+        config['instructions'][1]['img'] = config['instructions'][1]['img']
+
+    # SECTION 1: RESTING STATE INSTRUCTIONS
+    #sections.append(section([create_instructions(config['othertext'])]))
+    # # # SECTION 2: RESTING STATE CYCLE
+    # sections.append(section([
+    #     create_images(sorted(glob.glob(f'img_stim/setF/*.jpg')),True),
+    #     create_sounds(yaml.safe_load(open('audio_stim/audio.yml','r')),open('audio_stim/audio_stim_order.txt','r').read().split(),18),
+    # ]))
+    # # # SECTION 3: RESING STATE WAIT SCREEN
+    # sections.append(section([create_instructions(config['waitscreen'])]))
+    # SECTION 4: INSTUCTION SCREEN
     sections.append(section([create_instructions(config['instructions'])]))
-    # SECTION 4: INTRO IMAGE CYCLE WITH NO AUDIO
+    # SECTION 5: INTRO IMAGE CYCLE WITH NO AUDIO
     sections.append(section([
         create_images(sorted(glob.glob(f'img_stim/setN/set{user_input[0]}/intro/*.jpg')),False),
     ]))
     intro_frames = len(glob.glob(f'img_stim/setN/set{user_input[0]}/intro/*.jpg'))
-    # SECTION 5: IMAGE CYCLE WITH NO AUDIO
+    # SECTION 6: IMAGE CYCLE WITH NO AUDIO
     sections.append(section([
-        create_images(sorted(glob.glob(f'img_stim/setN/set{user_input[0}/cycle/*.jpg')),True,frames = (900 - intro_frames)),
+        create_images(sorted(glob.glob(f'img_stim/setN/set{user_input[0]}/cycle/*.jpg')),True,frames = (900 - intro_frames)),
     ]))
-    # SECTION 6: IMAGE CYCLE WITH AUDIO
+    # SECTION 7: IMAGE CYCLE WITH AUDIO
     sections.append(section([
         create_images(sorted(glob.glob(f'img_stim/setN/set{user_input[0]}/cycle/*.jpg')),True),
         create_sounds(yaml.safe_load(open('audio_stim/audio.yml','r')),open('audio_stim/audio_stim_order.txt','r').read().split(),18),
     ]))
-    # SECTION 7: ENDING SCREEN
+    # SECTION 8: ENDING SCREEN
     sections.append(section([create_instructions(config['waitscreen'])]))
 
     ### Run sections

@@ -1,27 +1,44 @@
-restingtext:
-      |
-        To begin the experiment, we will record your brain activity while you are "at rest". You will need to keep your
-
-        eyes on the fixation cross that will appear in the center of the screen. When this is done, a screen will
-
-        appear with instructions for the experiment.
-
-        Press the space bar to to begin.
-
 instructions:
   - img:
     text:
       |
-        In this experiment we are looking at whether viewing a simple animation helps people relax.
+        In this experiment we are looking at whether viewing a video from nature helps people relax.
 
-        You will watch a video and listen to a nonsense language. Please pay attention and listen carefully.
+        You will watch a pleasant video and listen to a nonsense language. Please pay attention and listen carefully.
 
         Press the space bar to continue.
 
-  - img: img_stim/{}/set1/intro/image_001.jpg
+  - img: img_stim/setN/set1/intro/image_001.jpg
     text:
       |
         Please wait for further instructions from the experimenter.
+
+altinstructions:
+  - img:
+    text:
+      |
+        In this experiment we are looking at whether viewing an image from nature helps people relax.
+
+        You will look at a pleasant image and listen to a nonsense language. Please pay attention and listen carefully.
+
+        Press the space bar to continue.
+
+  - img: img_stim/setN/set3/intro/image_001.jpg
+    text:
+      |
+        Please wait for further instructions from the experimenter.
+
+restinstructions:
+  - img:
+    text:
+      |
+        To begin the experiment, we will record brain activity while you are "at rest". You will need to keep your
+
+        eyes on the fixation cross that will appear in the center of the screen. When this part is done, a screen will
+
+        appear with intructions for continuing the experiment.
+
+        Press the space bar to begin.
 
 waitscreen:
   - img:
