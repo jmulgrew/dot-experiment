@@ -43,7 +43,7 @@ def main():
     and run the experiment.
     '''
     user_input = get_input() # get subject information
-    screen = visual.Window(monitor = "testMonitor", size=[1024,768], fullscr = True, color = (-1.0,-1.0,-1.0)) # set screen
+    screen = visual.Window(window = 'testMonitor', size=[1920,1200], fullscr = True, color = (-1.0,-1.0,-1.0)) # set screen
     # Set up serial port
     try: # see if port exists
         port = serial.Serial('COM7', baudrate = 115200, timeout = 1)
@@ -183,8 +183,8 @@ def main():
 
     ## SECTION 2: RESTING STATE CYCLE ##
     sections.append(section([
-        create_images(sorted(glob.glob(f'img_stim/setF/*.jpg')),True),
-        create_sounds(yaml.safe_load(open('audio_stim/audio.yml','r')),open('audio_stim/audio_stim_order.txt','r').read().split(),18),
+     create_images(sorted(glob.glob(f'img_stim/setF/*.jpg')),True),
+     create_sounds(yaml.safe_load(open('audio_stim/audio.yml','r')),open('audio_stim/audio_stim_order.txt','r').read().split(),18),
     ]))
 
     ## SECTION 3: RESING STATE WAIT SCREEN ##
