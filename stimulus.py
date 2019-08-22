@@ -30,6 +30,6 @@ class stimulus:
         self.paused = False
 
     def space(self):
-        '''Manually go to next screen
+        '''Manually go to next screen.
         '''
         self.next(self)

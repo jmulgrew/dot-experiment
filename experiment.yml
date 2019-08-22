@@ -32,11 +32,11 @@ restinstructions:
   - img:
     text:
       |
-        To begin the experiment, we will record brain activity while you are "at rest". You will need to keep your
+        To begin the experiment, we will record brain activity while you are "at rest".
 
-        eyes on the fixation cross that will appear in the center of the screen. When this part is done, a screen will
+        Please keep your eyes on the fixation cross that will appear in the center of the screen.
 
-        appear with intructions for continuing the experiment.
+        When this part is done, a screen will appear with intructions for continuing the experiment.
 
         Press the space bar to begin.
 
@@ -45,5 +45,6 @@ waitscreen:
     text:
       |
         Please wait, the experimenter will be right with you.
+
 user_input:
   "Condition Number": !!python/tuple [1,2,3]
