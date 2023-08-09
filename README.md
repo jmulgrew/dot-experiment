@@ -6,11 +6,6 @@
 - Code will be run on a PC.
 - Communication with EEG is USB-to-serial port [(exact info here)](https://www.biosemi.com/faq/USB%20Trigger%20interface%20cable.htm).
 
-##### My Frequencies:
-- "0.75 Hz" (4 syllable units): condition/image set 1
-- "1 Hz" (3 syllable units): condition/image set 2
-- "1.5 Hz" (2 syllable units): condition/image set 3
-
 ##### Resources:
 - [Information on Timing](https://www.psychopy.org/general/timing/timing.html)
 - [Images](https://www.psychopy.org/api/visual/imagestim.html#psychopy.visual.ImageStim)
